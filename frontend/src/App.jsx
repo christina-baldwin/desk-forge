@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Suggestions from "./pages/Suggestions";
+import NotFound from "./pages/NotFound";
 
 export const App = () => {
   return (
@@ -14,6 +15,7 @@ export const App = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/suggestions" element={<Suggestions />} />
       <Route path="/upload" element={<Upload />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 };
