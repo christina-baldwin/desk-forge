@@ -4,7 +4,7 @@ const Landing = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-20 p-50">
       <h1 className="text-5xl">DeskForge</h1>
-      <p className="text-center text-lg">
+      <p className="text-center text-lg/8">
         Welcome to Desk Forge! The app designed for tabletop gamers and
         hobbyists to effortlessly organise their desk spaces. Whether you're
         managing your Warhammer armies or juggling multiple creative projects,
