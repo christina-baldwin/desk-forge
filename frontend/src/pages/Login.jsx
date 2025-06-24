@@ -1,3 +1,5 @@
+// TODO: check if an email doesnt exist as an account, id not, give a message that the accoutn doesnt exist and to register
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
