@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 import authenticate from "./middlewares/auth.js";
 import authRoutes from "./routes/auth.js";
 
+dotenv.config();
+
 const port = process.env.PORT || 8080;
 const app = express();
 
