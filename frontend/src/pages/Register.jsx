@@ -37,49 +37,60 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h2>Create an Account</h2>
-        <form onSubmit={handleRegister}>
-          <div>
-            <label htmlFor="name">Full name</label>
-            <input
-              type="text"
-              id="name"
-              placeholder="yourfullname"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="you@example.com"
-              vbalue={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit">Register</button>
-          {error && <p>{error}</p>}
-        </form>
+    <div className="flex flex-col items-center justify-center min-h-screen gap-15 p-50">
+      <h2 className="text-5xl">Register</h2>
+      <form onSubmit={handleRegister}>
+        <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="name">Full name</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="yourfullname"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="px-2 py-1 border-1 rounded-[5px]"
+          />
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            vbalue={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="px-2 py-1 border-1 rounded-[5px]"
+          />
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="px-2 py-1 border-1 rounded-[5px]"
+          />
+        </div>
+        <button
+          type="submit"
+          className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+        >
+          Register
+        </button>
+        {error && <p>{error}</p>}
+      </form>
 
-        <p>
-          Already have an account? <Link to="/login">Log in</Link>
-        </p>
-        <Link to="/">← Back to Home</Link>
-      </div>
+      <p>
+        Already have an account?{" "}
+        <Link to="/login" className="underline">
+          Log in
+        </Link>
+      </p>
+      <Link to="/" className="hover:underline">
+        ← Back to Home
+      </Link>
     </div>
   );
 };
