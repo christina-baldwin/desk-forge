@@ -18,6 +18,15 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    if (!email || !password) {
+      setError("Email and password are required");
+      return;
+    }
+
+    if (!email.includes("@") || !email.includes(".")) {
+      setError("Please enter a valid email");
+    }
+
     try {
       const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",

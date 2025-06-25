@@ -1,4 +1,3 @@
-// TODO: add validation
 // TODO: check if email already exists, if it does give a message and ask them to log in instead
 
 import { useState } from "react";
@@ -10,11 +9,32 @@ const apiUrl = "http://localhost:8080";
 const Register = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (!email || !password || !confirmPassword) {
+      setError("All fields are required");
+      return;
+    }
+
+    if (!email.includes("@") || !email.includes(".")) {
+      setError("Please enter a valid email");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
     try {
       const response = await fetch(`${apiUrl}/auth/register`, {
@@ -71,6 +91,17 @@ const Register = () => {
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="px-2 py-1 border-1 rounded-[5px]"
+          />
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="confirm-password">Confirm password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="••••••••"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="px-2 py-1 border-1 rounded-[5px]"
           />
         </div>
