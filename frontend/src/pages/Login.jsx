@@ -41,38 +41,48 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h2>Log in</h2>
-        <form onSubmit={handleLogin}>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="you@example.com"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="••••••••"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit">Log In</button>
-          {error && <p className="text-red-500 mt-2">{error}</p>}
-        </form>
+    <div className="flex flex-col items-center justify-center min-h-screen gap-15 p-50">
+      <h2 className="text-5xl">Log in</h2>
+      <form onSubmit={handleLogin}>
+        <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            onChange={(e) => setEmail(e.target.value)}
+            className="px-2 py-1 border-1 rounded-[5px]"
+          />
+        </div>
+        <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            onChange={(e) => setPassword(e.target.value)}
+            className="px-2 py-1 border-1 rounded-[5px]"
+          />
+        </div>
+        <button
+          type="submit"
+          className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+        >
+          Log In
+        </button>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+      </form>
 
-        <p>
-          Don’t have an account? <Link to="/register">Register here</Link>
-        </p>
-        <Link to="/">← Back to Home</Link>
-        {isLoading && <p>Logging in...</p>}
-      </div>
+      <p>
+        Don’t have an account?{" "}
+        <Link to="/register" className="underline">
+          Register here
+        </Link>
+      </p>
+      <Link to="/" className="hover:underline">
+        ← Back to Home
+      </Link>
+      {isLoading && <p>Logging in...</p>}
     </div>
   );
 };
