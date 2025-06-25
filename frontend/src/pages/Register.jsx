@@ -21,6 +21,11 @@ const Register = () => {
       return;
     }
 
+    if (!name || name.length < 3) {
+      setError("Name must be at least 3 characters");
+      return;
+    }
+
     if (!email.includes("@") || !email.includes(".")) {
       setError("Please enter a valid email");
       return;
@@ -43,8 +48,10 @@ const Register = () => {
         body: JSON.stringify({ name, email, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("Registration failed");
+        throw new Error(data.message || "Registration failed");
       }
 
       alert("Registration successful!");
@@ -87,7 +94,7 @@ const Register = () => {
             type="email"
             id="email"
             placeholder="you@example.com"
-            vbalue={email}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="px-2 py-1 border-1 rounded-[5px]"
           />

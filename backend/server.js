@@ -1,13 +1,13 @@
-import cors from "cors";
 import dotenv from "dotenv";
+dotenv.config();
+
+import cors from "cors";
 import express from "express";
 import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 
 import authenticate from "./middlewares/auth.js";
 import authRoutes from "./routes/auth.js";
-
-dotenv.config();
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -22,8 +22,10 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Hello DeskForge!");
 });
+
+app.use("/auth", authRoutes);
 
 // Start the server
 app.listen(port, () => {

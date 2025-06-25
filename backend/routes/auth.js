@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import jwt from "jsonwebtoken";
 
@@ -8,21 +11,25 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // signing up as a user
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
         .status(400)
-        .json({ success: false, message: "Username or email already exists." });
+        .json({ success: false, message: "Email already exists." });
     }
 
-    const newUser = new User({ username, email, password });
+    const newUser = new User({ name, email, password });
     await newUser.save();
 
+    if (!JWT_SECRET) {
+      console.error("JWT_SECRET is missing or empty!");
+    }
+
     const token = jwt.sign(
-      { id: newUser._id, username: newUser.username },
+      { id: newUser._id, user: newUser.email },
       JWT_SECRET,
       {
         expiresIn: "7d",
@@ -31,6 +38,7 @@ router.post("/register", async (req, res) => {
 
     res.status(201).json({ success: true, message: "User created", token });
   } catch (error) {
+    console.log(error);
     res
       .status(500)
       .json({ success: false, message: "Error creating user", error });
@@ -56,17 +64,15 @@ router.post("/login", async (req, res) => {
         .json({ success: false, message: "Invalid email or password" });
     }
 
-    const token = jwt.sign(
-      { id: user._id, username: user.username },
-      JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
-    );
+    const token = jwt.sign({ id: user._id, user: user.email }, JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
     res.status(200).json({ success: true, message: "Logged in", token });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Login error", error });
+    res
+      .status(500)
+      .json({ success: false, message: error.message || "Login error", error });
   }
 });
 
