@@ -58,9 +58,18 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-15 p-50">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-15">
       <h2 className="text-5xl">Register</h2>
       <form onSubmit={handleRegister}>
+        <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
+          <p
+            className={`text-sm text-red-600 transition-opacity duration-300 ${
+              error ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {error || "placeholder"}
+          </p>
+        </div>
         <div className="flex flex-col gap-2 mb-4">
           <label htmlFor="name">Full name</label>
           <input
@@ -111,7 +120,6 @@ const Register = () => {
         >
           Register
         </button>
-        {error && <p>{error}</p>}
       </form>
 
       <p>

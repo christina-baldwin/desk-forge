@@ -1,4 +1,3 @@
-// TODO: add validation
 // TODO: check if an email doesnt exist as an account, id not, give a message that the accoutn doesnt exist and to register
 
 import { useState } from "react";
@@ -51,9 +50,18 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-15 p-50">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-15">
       <h2 className="text-5xl">Log in</h2>
       <form onSubmit={handleLogin}>
+        <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
+          <p
+            className={`text-sm text-red-600 transition-opacity duration-300 ${
+              error ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {error || "placeholder"}
+          </p>
+        </div>
         <div className="flex flex-col gap-2 mb-4">
           <label htmlFor="email">Email</label>
           <input
@@ -80,7 +88,6 @@ const Login = () => {
         >
           Log In
         </button>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
       </form>
 
       <p>
@@ -92,7 +99,17 @@ const Login = () => {
       <Link to="/" className="hover:underline">
         ← Back to Home
       </Link>
-      {isLoading && <p>Logging in...</p>}
+      <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
+        {isLoading && (
+          <p
+            className={`text-sm text-center italic transition-opacity duration-300 ${
+              isLoading ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Logging in...
+          </p>
+        )}
+      </div>
     </div>
   );
 };
