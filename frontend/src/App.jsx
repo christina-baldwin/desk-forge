@@ -6,18 +6,21 @@ import Register from "./pages/Register";
 import Suggestions from "./pages/Suggestions";
 import Upload from "./pages/Upload";
 import NotFound from "./pages/NotFound";
+import Layout from "./components/Layout";
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/suggestions" element={<Suggestions />} />
-        <Route path="/upload" element={<Upload />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/*" element={<NotFound />} />
+        <Route element={<Layout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/suggestions" element={<Suggestions />} />
+          <Route path="/upload" element={<Upload />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
