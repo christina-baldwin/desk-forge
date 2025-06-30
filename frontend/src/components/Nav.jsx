@@ -45,7 +45,7 @@ const Nav = () => {
     <div className="flex flex-row justify-between items-center p-4 mb-4">
       <div className="flex flex-row items-center gap-4">
         <img src="/DF-logo-simple.png" alt="Logo" className="w-8" />
-        <p>Welcome {userName || "..."}!</p>
+        <p>Hi, {userName || "..."}!</p>
       </div>
       <button
         onClick={handleLogout}
