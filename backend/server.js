@@ -8,7 +8,6 @@ import mongoose from "mongoose";
 
 import authenticate from "./middlewares/auth.js";
 import authRoutes from "./routes/auth.js";
-import userInfoRoute from "./routes/userInfo.js";
 
 const port = process.env.PORT || 8080;
 const app = express();

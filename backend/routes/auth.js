@@ -5,6 +5,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User.js";
+import authenticate from "../middlewares/auth.js";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
