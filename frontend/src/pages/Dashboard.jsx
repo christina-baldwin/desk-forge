@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+import SideBar from "../components/SideBar";
+
 const Dashboard = () => {
   const navigate = useNavigate();
 
@@ -13,8 +15,11 @@ const Dashboard = () => {
   }, [navigate]);
 
   return (
-    <div>
-      <h1>My dashboard</h1>
+    <div className="flex gap-4">
+      <SideBar />
+      <div className="p-4">
+        <h1>My dashboard</h1>
+      </div>
     </div>
   );
 };
