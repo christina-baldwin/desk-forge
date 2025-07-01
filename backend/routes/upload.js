@@ -1,4 +1,5 @@
 import express from "express";
+import Desk from "../models/Desk.js";
 import multer from "multer";
 import authenticate from "../middlewares/auth.js";
 import { v2 as cloudinary } from "cloudinary";
@@ -31,11 +32,24 @@ router.post("/", authenticate, upload.single("image"), async (req, res) => {
     // delete temporary file
     await fs.unlink(file.path);
 
+    // Save to MongoDB Desk collection
+    const newDesk = new Desk({
+      userId: req.user._id,
+      imageUrl: result.secure_url,
+      suggestions: [],
+    });
+
+    await newDesk.save();
+
     res.status(200).json({
       success: true,
-      message: "Photo uploaded!",
+      message: "Photo uploaded and saved to DB!",
       url: result.secure_url,
       id: result.public_id,
+      desk: {
+        _id: newDesk._id,
+        suggestions: newDesk.suggestions,
+      },
     });
   } catch (error) {
     console.error(error);
