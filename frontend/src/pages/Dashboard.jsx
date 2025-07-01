@@ -19,14 +19,24 @@ const Dashboard = () => {
     <div className="flex gap-4">
       <SideBar />
       <div className="flex flex-col gap-2 p-4">
-        <h1>Welcome back!</h1>
+        <h1 className="text-2xl font-bold">Welcome back!</h1>
         <div>
           <h2>Latest Upload</h2>
           <img />
         </div>
-        <div>
-          <Link to="/upload">Upload New Photo</Link>
-          <Link to="/suggestions">View Suggestions</Link>
+        <div className="flex gap-2">
+          <Link
+            to="/upload"
+            className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+          >
+            Upload Photo
+          </Link>
+          <Link
+            to="/suggestions"
+            className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+          >
+            View Suggestions
+          </Link>
         </div>
       </div>
     </div>

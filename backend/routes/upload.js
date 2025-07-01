@@ -35,6 +35,7 @@ router.post("/", authenticate, upload.single("image"), async (req, res) => {
       success: true,
       message: "Photo uploaded!",
       url: result.secure_url,
+      id: result.public_id,
     });
   } catch (error) {
     console.error(error);
