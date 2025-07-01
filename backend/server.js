@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 
 import authenticate from "./middlewares/auth.js";
 import authRoutes from "./routes/auth.js";
+import uploadRoute from "./routes/upload.js";
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -26,6 +27,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+
+app.use("/upload", uploadRoute);
 
 // Start the server
 app.listen(port, () => {
