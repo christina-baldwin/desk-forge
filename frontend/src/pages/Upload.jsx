@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import SideBar from "../components/SideBar";
 
 // change this once on render
 const apiUrl = "http://localhost:8080";
@@ -69,62 +70,65 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 items-center">
-      <h1 className="text-2xl font-bold">Upload New Photo</h1>
+    <div className="flex gap-4">
+      <SideBar />
+      <div className="flex flex-col gap-4 p-4 items-center">
+        <h1 className="text-2xl font-bold">Upload New Photo</h1>
 
-      <input
-        type="file"
-        accept="image/*"
-        capture="environment"
-        style={{ display: "none" }}
-        ref={fileInputRef}
-        onChange={handleFileChange}
-      />
-
-      <button
-        onClick={handleSelectClick}
-        className="underline px-4 py-2 border rounded cursor-pointer"
-      >
-        {file ? file.name : "Select a file to upload"}
-      </button>
-
-      <div className="flex gap-2">
-        <button
-          onClick={handleUpload}
-          className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-        >
-          Upload
-        </button>
+        <input
+          type="file"
+          accept="image/*"
+          capture="environment"
+          style={{ display: "none" }}
+          ref={fileInputRef}
+          onChange={handleFileChange}
+        />
 
         <button
-          onClick={handleCancel}
-          className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+          onClick={handleSelectClick}
+          className="underline px-4 py-2 border rounded cursor-pointer"
         >
-          Cancel
+          {file ? file.name : "Select a file to upload"}
         </button>
-      </div>
 
-      <p>Accepted formats: JPG, PNG, GIF</p>
-      <p>Max file size: 5MB</p>
-
-      {message && <p className="mt-2 text-center">{message}</p>}
-
-      {/* Preview uploaded image */}
-      {uploadedUrl && (
-        <div className="mt-4 flex flex-col items-center gap-2">
-          <img
-            src={uploadedUrl}
-            alt="Uploaded preview"
-            className="max-w-xs max-h-64 rounded shadow"
-          />
+        <div className="flex gap-2">
           <button
-            onClick={handleGenerateSuggestions}
+            onClick={handleUpload}
             className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
           >
-            Generate Suggestions
+            Upload
+          </button>
+
+          <button
+            onClick={handleCancel}
+            className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+          >
+            Cancel
           </button>
         </div>
-      )}
+
+        <p>Accepted formats: JPG, PNG, GIF</p>
+        <p>Max file size: 5MB</p>
+
+        {message && <p className="mt-2 text-center">{message}</p>}
+
+        {/* Preview uploaded image */}
+        {uploadedUrl && (
+          <div className="mt-4 flex flex-col items-center gap-2">
+            <img
+              src={uploadedUrl}
+              alt="Uploaded preview"
+              className="max-w-xs max-h-64 rounded shadow"
+            />
+            <button
+              onClick={handleGenerateSuggestions}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Generate Suggestions
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
