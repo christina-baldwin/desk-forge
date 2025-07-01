@@ -7,6 +7,7 @@ import Suggestions from "./pages/Suggestions";
 import Upload from "./pages/Upload";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+import Settings from "./pages/Settings";
 
 export const App = () => {
   return (
@@ -20,6 +21,7 @@ export const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/suggestions" element={<Suggestions />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>
