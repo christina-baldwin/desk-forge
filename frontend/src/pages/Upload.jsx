@@ -8,6 +8,7 @@ const Upload = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [uploadedUrl, setUploadedUrl] = useState("");
+  const [desk, setDesk] = useState(null);
   const fileInputRef = useRef();
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const Upload = () => {
         const data = await response.json();
 
         if (data.desks && data.desks.length > 0) {
+          setDesk(data.desks[0]);
           setUploadedUrl(data.desks[0].imageUrl);
         }
       } catch (error) {
@@ -91,6 +93,29 @@ const Upload = () => {
     alert("Suggestions triggered! (not implemented yet)");
   };
 
+  // TODO: need a delete route in the backend
+  const handleDelete = async (deskId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`${apiUrl}/upload/desks/${deskId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete file");
+      }
+
+      setMessage("File deleted successfully!");
+      setUploadedUrl("");
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
   return (
     <div className="flex gap-4">
       <SideBar />
@@ -132,25 +157,34 @@ const Upload = () => {
         <p>Accepted formats: JPG, PNG, GIF</p>
         <p>Max file size: 5MB</p>
 
-        {message && <p className="mt-2 text-center">{message}</p>}
-
+        <h3 className="text-xl font-bold">Latest photo</h3>
         {/* Preview uploaded image */}
-        {uploadedUrl && (
+        {uploadedUrl ? (
           <div className="mt-4 flex flex-col items-left gap-2">
-            <h3 className="text-xl font-bold">Latest photo</h3>
             <img
               src={uploadedUrl}
               alt="Uploaded preview"
               className="max-w-xs max-h-64 rounded shadow"
             />
-            <button
-              onClick={handleGenerateSuggestions}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Generate Suggestions
-            </button>
+            <div className="flex gap-2 ">
+              <button
+                onClick={handleGenerateSuggestions}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Generate Suggestions
+              </button>
+              <button
+                onClick={() => handleDelete(desk._id)}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Delete
+              </button>
+            </div>
           </div>
+        ) : (
+          <p>No photos yet, upload a photo to get started!</p>
         )}
+        {message && <p className="mt-2 text-center">{message}</p>}
       </div>
     </div>
   );

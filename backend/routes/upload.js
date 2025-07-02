@@ -92,4 +92,35 @@ router.get("/desks", authenticate, async (req, res) => {
   }
 });
 
+router.delete("/desks/:id", authenticate, async (req, res) => {
+  try {
+    const deskId = req.params.id;
+
+    // Find the desk by ID and ensure it belongs to the user
+    const desk = await Desk.findOneAndDelete({
+      _id: deskId,
+      userId: req.user.id,
+    });
+
+    if (!desk) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Desk not found" });
+    }
+
+    // delete the image from Cloudinary
+    // extract public ID from URL
+    const publicId = desk.imageUrl.split("/").slice(-2).join("/").split(".")[0];
+
+    await cloudinary.uploader.destroy(publicId);
+
+    res
+      .status(200)
+      .json({ success: true, message: "Desk deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to delete desk" });
+  }
+});
+
 export default router;
