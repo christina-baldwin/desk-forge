@@ -34,7 +34,7 @@ router.post("/", authenticate, upload.single("image"), async (req, res) => {
 
     // Save to MongoDB Desk collection
     const newDesk = new Desk({
-      userId: req.user._id,
+      userId: req.user.id,
       imageUrl: result.secure_url,
       suggestions: [],
     });
@@ -54,6 +54,41 @@ router.post("/", authenticate, upload.single("image"), async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Upload failed" });
+  }
+});
+
+// GET latest desk for logged-in user
+router.get("/latest", authenticate, async (req, res) => {
+  try {
+    // Find latest desk for the user by createdAt descending
+    const latestDesk = await Desk.findOne({ userId: req.user._id })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    if (!latestDesk) {
+      return res.status(404).json({ success: false, message: "No desk found" });
+    }
+
+    res.status(200).json({ success: true, desk: latestDesk });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch latest desk" });
+  }
+});
+
+router.get("/desks", authenticate, async (req, res) => {
+  try {
+    // newest desk first
+    const desks = await Desk.find({ userId: req.user.id })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    res.status(200).json({ success: true, desks });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to fetch desks" });
   }
 });
 

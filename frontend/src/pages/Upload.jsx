@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import SideBar from "../components/SideBar";
 
 // change this once on render
@@ -7,13 +7,36 @@ const apiUrl = "http://localhost:8080";
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
-  const [uploadedUrl, setUploadedUrl] = useState(""); // store uploaded photo url
+  const [uploadedUrl, setUploadedUrl] = useState("");
   const fileInputRef = useRef();
+
+  useEffect(() => {
+    const fetchDesks = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch(`${apiUrl}/upload/desks`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) throw new Error("Failed to fetch desks");
+
+        const data = await response.json();
+
+        if (data.desks && data.desks.length > 0) {
+          setUploadedUrl(data.desks[0].imageUrl);
+        }
+      } catch (error) {
+        setMessage(error.message);
+      }
+    };
+
+    fetchDesks();
+  }, []);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
     setMessage("");
-    setUploadedUrl(""); // clear old uploaded url when new file selected
   };
 
   const handleSelectClick = () => {
@@ -51,7 +74,7 @@ const Upload = () => {
       const data = await response.json();
 
       setMessage("File uploaded successfully!");
-      setUploadedUrl(data.url); // show preview with this URL
+      setUploadedUrl(data.url);
     } catch (error) {
       setMessage(error.message);
       setUploadedUrl("");
@@ -61,7 +84,6 @@ const Upload = () => {
   const handleCancel = () => {
     setFile(null);
     setMessage("");
-    setUploadedUrl("");
   };
 
   const handleGenerateSuggestions = () => {
@@ -72,7 +94,7 @@ const Upload = () => {
   return (
     <div className="flex gap-4">
       <SideBar />
-      <div className="flex flex-col gap-4 p-4 items-center">
+      <div className="flex flex-col gap-4 p-4 items-left">
         <h1 className="text-2xl font-bold">Upload New Photo</h1>
 
         <input
@@ -114,7 +136,8 @@ const Upload = () => {
 
         {/* Preview uploaded image */}
         {uploadedUrl && (
-          <div className="mt-4 flex flex-col items-center gap-2">
+          <div className="mt-4 flex flex-col items-left gap-2">
+            <h3 className="text-xl font-bold">Latest photo</h3>
             <img
               src={uploadedUrl}
               alt="Uploaded preview"
