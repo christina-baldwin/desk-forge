@@ -3,10 +3,8 @@ dotenv.config();
 
 import cors from "cors";
 import express from "express";
-import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 
-import authenticate from "./middlewares/auth.js";
 import authRoutes from "./routes/auth.js";
 import uploadRoutes from "./routes/upload.js";
 

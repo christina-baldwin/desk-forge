@@ -93,7 +93,6 @@ const Upload = () => {
     alert("Suggestions triggered! (not implemented yet)");
   };
 
-  // TODO: need a delete route in the backend
   const handleDelete = async (deskId) => {
     const token = localStorage.getItem("token");
 

@@ -96,7 +96,7 @@ router.delete("/desks/:id", authenticate, async (req, res) => {
   try {
     const deskId = req.params.id;
 
-    // Find the desk by ID and ensure it belongs to the user
+    // find desk by ID and check it belongs to the user
     const desk = await Desk.findOneAndDelete({
       _id: deskId,
       userId: req.user.id,
