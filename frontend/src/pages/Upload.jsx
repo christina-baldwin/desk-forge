@@ -153,10 +153,10 @@ const Upload = () => {
           </button>
         </div>
 
-        <p>Accepted formats: JPG, PNG, GIF</p>
-        <p>Max file size: 5MB</p>
+        <p className="italic">Accepted formats: JPG, PNG, GIF</p>
+        <p className="italic">Max file size: 5MB</p>
 
-        <h3 className="text-xl font-bold">Latest photo</h3>
+        <h3 className="text-xl font-bold">Latest Photo</h3>
         {/* Preview uploaded image */}
         {uploadedUrl ? (
           <div className="mt-4 flex flex-col items-left gap-2">
