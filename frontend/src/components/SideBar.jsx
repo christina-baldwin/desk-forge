@@ -5,7 +5,7 @@ const SideBar = () => {
     <div>
       <ul className="flex flex-col gap-2 p-4">
         <Link to="/dashboard">
-          <li>Dashboard</li>
+          <li>Home</li>
         </Link>
         <Link to="/upload">
           <li>Upload</li>
