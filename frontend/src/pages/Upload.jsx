@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
 
 // change this once on render
@@ -10,6 +11,8 @@ const Upload = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [desk, setDesk] = useState(null);
   const fileInputRef = useRef();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -167,10 +170,16 @@ const Upload = () => {
             />
             <div className="flex gap-2 ">
               <button
-                onClick={handleGenerateSuggestions}
+                onClick={
+                  desk.suggestions && desk.suggestions.length > 0
+                    ? navigate(`/suggestions`)
+                    : handleGenerateSuggestions
+                }
                 className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
               >
-                Generate Suggestions
+                {desk.suggestions && desk.suggestions.length > 0
+                  ? "Suggestions Generated"
+                  : "Generate Suggestions"}
               </button>
               <button
                 onClick={() => handleDelete(desk._id)}
