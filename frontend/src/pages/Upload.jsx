@@ -137,7 +137,14 @@ const Upload = () => {
           onClick={handleSelectClick}
           className="underline px-4 py-2 border rounded cursor-pointer"
         >
-          {file ? file.name : "Select a file to upload"}
+          {file ? file.name : "Select a file"}
+        </button>
+        <p>or</p>
+        <button
+          onClick={handleSelectClick}
+          className="underline px-4 py-2 border rounded cursor-pointer"
+        >
+          {file ? file.name : "Take a photo"}
         </button>
 
         <div className="flex gap-2">
