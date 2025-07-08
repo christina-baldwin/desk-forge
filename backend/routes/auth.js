@@ -9,6 +9,13 @@ import authenticate from "../middlewares/auth.js";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
+const bcrypt = require("bcrypt");
+
+async function hashPassword(password) {
+  const saltRounds = 10;
+  const hashed = await bcrypt.hash(password, saltRounds);
+  return hashed;
+}
 
 // signing up as a user
 router.post("/register", async (req, res) => {
@@ -81,6 +88,31 @@ router.post("/login", async (req, res) => {
 router.get("/user", authenticate, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("name email");
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch user" });
+  }
+});
+
+router.patch("/user", authenticate, async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+    if (password) {
+      user.password = await hashPassword(password);
+    }
+
+    await user.save();
 
     res.status(200).json({ success: true, user });
   } catch (error) {

@@ -92,15 +92,18 @@ const Settings = () => {
         ) : (
           <>
             <p>{userName}</p>
-            <button onClick={() => setIsEditingName(true)}>Change Name</button>
+            <button
+              onClick={() => setIsEditingName(true)}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Change Name
+            </button>
           </>
         )}
 
         <h3>Email</h3>
         <p>{userEmail}</p>
-        <button className="px-3 py-2 border-2 rounded-[5px] cursor-pointer">
-          Change Name
-        </button>
+
         <button className="px-3 py-2 border-2 rounded-[5px] cursor-pointer">
           Change Email
         </button>
