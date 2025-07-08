@@ -85,9 +85,20 @@ const Settings = () => {
               type="text"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
+              className="px-2 py-1 border-1 rounded-[5px]"
             />
-            <button onClick={handleNameSave}>Save</button>
-            <button onClick={() => setIsEditingName(false)}>Cancel</button>
+            <button
+              onClick={handleNameSave}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setIsEditingName(false)}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Cancel
+            </button>
           </>
         ) : (
           <>
