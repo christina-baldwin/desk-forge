@@ -67,10 +67,12 @@ const Settings = () => {
 
       setUserName(newName);
       setIsEditingName(false);
+      setError("");
     } catch (error) {
       setError(error.message);
     }
   };
+
   const handleEmailSave = async () => {
     const token = localStorage.getItem("token");
 
@@ -92,6 +94,40 @@ const Settings = () => {
 
       setUserEmail(newEmail);
       setIsEditingEmail(false);
+      setError("");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const handlePasswordSave = async () => {
+    const token = localStorage.getItem("token");
+
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiUrl}/auth/user`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ password: newPassword }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update user password");
+      }
+
+      setNewPassword("");
+      setConfirmPassword("");
+      setIsEditingPassword(false);
+      setError("");
     } catch (error) {
       setError(error.message);
     }
@@ -166,6 +202,46 @@ const Settings = () => {
               className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
             >
               Change Email
+            </button>
+          </>
+        )}
+
+        <h3 className="text-lg font-bold">Password</h3>
+        {isEditingPassword ? (
+          <>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="px-2 py-1 border-1 rounded-[5px]"
+            />
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="px-2 py-1 border-1 rounded-[5px]"
+            />
+            <button
+              onClick={handlePasswordSave}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setIsEditingPassword(false)}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <>
+            <p>********</p>
+            <button
+              onClick={() => setIsEditingPassword(true)}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Change Password
             </button>
           </>
         )}
