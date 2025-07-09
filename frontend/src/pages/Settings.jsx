@@ -49,7 +49,6 @@ const Settings = () => {
   const handleNameSave = async () => {
     const token = localStorage.getItem("token");
 
-    //TODO: need a patch route on the backend
     try {
       const response = await fetch(`${apiUrl}/auth/user`, {
         method: "PATCH",
@@ -72,13 +71,38 @@ const Settings = () => {
       setError(error.message);
     }
   };
+  const handleEmailSave = async () => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`${apiUrl}/auth/user`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email: newEmail }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update user email");
+      }
+
+      setUserEmail(newEmail);
+      setIsEditingEmail(false);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   return (
     <div className="flex gap-4">
       <SideBar />
       <div className="flex-1 p-4">
         <h1 className="text-2xl font-bold">Settings</h1>
-        <h3>Name</h3>
+        <h3 className="text-lg font-bold">Name</h3>
         {isEditingName ? (
           <>
             <input
@@ -112,15 +136,39 @@ const Settings = () => {
           </>
         )}
 
-        <h3>Email</h3>
-        <p>{userEmail}</p>
-
-        <button className="px-3 py-2 border-2 rounded-[5px] cursor-pointer">
-          Change Email
-        </button>
-        <button className="px-3 py-2 border-2 rounded-[5px] cursor-pointer">
-          Change Password
-        </button>
+        <h3 className="text-lg font-bold">Email</h3>
+        {isEditingEmail ? (
+          <>
+            <input
+              type="text"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+              className="px-2 py-1 border-1 rounded-[5px]"
+            />
+            <button
+              onClick={handleEmailSave}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setIsEditingEmail(false)}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <>
+            <p>{userEmail}</p>
+            <button
+              onClick={() => setIsEditingEmail(true)}
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Change Email
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
