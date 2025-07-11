@@ -209,18 +209,28 @@ const Settings = () => {
         <h3 className="text-lg font-bold">Password</h3>
         {isEditingPassword ? (
           <>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="px-2 py-1 border-1 rounded-[5px]"
-            />
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="px-2 py-1 border-1 rounded-[5px]"
-            />
+            <div className="flex flex-col gap-2 ">
+              <label>New Password</label>
+              <div>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="px-2 py-1 border-1 rounded-[5px] "
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 ">
+              <label>Confirm New Password</label>
+              <div>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="px-2 py-1 border-1 rounded-[5px]"
+                />
+              </div>
+            </div>
             <button
               onClick={handlePasswordSave}
               className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
