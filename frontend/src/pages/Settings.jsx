@@ -137,79 +137,93 @@ const Settings = () => {
     <div className="flex gap-4">
       <SideBar />
       <div className="flex-1 p-4">
-        <h1 className="text-2xl font-bold">Settings</h1>
-        <h3 className="text-lg font-bold">Name</h3>
+        <h1 className="text-2xl font-bold mb-4">Settings</h1>
+        <h3 className="text-lg font-bold mb-2">Name</h3>
         {isEditingName ? (
           <>
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              className="px-2 py-1 border-1 rounded-[5px]"
-            />
-            <button
-              onClick={handleNameSave}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setIsEditingName(false)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Cancel
-            </button>
+            <div className="flex flex-col gap-2 mb-2">
+              <label>New Name</label>
+              <div>
+                <input
+                  type="text"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                  className="px-2 py-1 border-1 rounded-[5px]"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 mb-2">
+              <button
+                onClick={handleNameSave}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setIsEditingName(false)}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
           </>
         ) : (
           <>
-            <p>{userName}</p>
+            <p className="text-lg mb-2">{userName}</p>
             <button
               onClick={() => setIsEditingName(true)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer mb-2"
             >
               Change Name
             </button>
           </>
         )}
 
-        <h3 className="text-lg font-bold">Email</h3>
+        <h3 className="text-lg font-bold mb-2">Email</h3>
         {isEditingEmail ? (
           <>
-            <input
-              type="text"
-              value={newEmail}
-              onChange={(e) => setNewEmail(e.target.value)}
-              className="px-2 py-1 border-1 rounded-[5px]"
-            />
-            <button
-              onClick={handleEmailSave}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setIsEditingEmail(false)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Cancel
-            </button>
+            <div className="flex flex-col gap-2 mb-2">
+              <label>New Email</label>
+              <div>
+                <input
+                  type="text"
+                  value={newEmail}
+                  onChange={(e) => setNewEmail(e.target.value)}
+                  className="px-2 py-1 border-1 rounded-[5px]"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 mb-2">
+              <button
+                onClick={handleEmailSave}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setIsEditingEmail(false)}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
           </>
         ) : (
           <>
-            <p>{userEmail}</p>
+            <p className="text-lg mb-2">{userEmail}</p>
             <button
               onClick={() => setIsEditingEmail(true)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer mb-2"
             >
               Change Email
             </button>
           </>
         )}
 
-        <h3 className="text-lg font-bold">Password</h3>
+        <h3 className="text-lg font-bold mb-2">Password</h3>
         {isEditingPassword ? (
           <>
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2 mb-2">
               <label>New Password</label>
               <div>
                 <input
@@ -220,7 +234,7 @@ const Settings = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2 mb-2">
               <label>Confirm New Password</label>
               <div>
                 <input
@@ -231,22 +245,24 @@ const Settings = () => {
                 />
               </div>
             </div>
-            <button
-              onClick={handlePasswordSave}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setIsEditingPassword(false)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Cancel
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handlePasswordSave}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setIsEditingPassword(false)}
+                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
           </>
         ) : (
           <>
-            <p>********</p>
+            <p className="text-lg mb-2">********</p>
             <button
               onClick={() => setIsEditingPassword(true)}
               className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
