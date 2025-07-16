@@ -10,6 +10,7 @@ const Upload = () => {
   const [message, setMessage] = useState("");
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [desk, setDesk] = useState(null);
+  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef();
 
   const navigate = useNavigate();
@@ -91,9 +92,32 @@ const Upload = () => {
     setMessage("");
   };
 
-  const handleGenerateSuggestions = () => {
-    // TODO: call the suggestions API
-    alert("Suggestions triggered! (not implemented yet)");
+  const handleGenerateSuggestions = async (deskId) => {
+    setLoading(true);
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`${apiUrl}/ai/desks/${deskId}/generate`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate suggestions");
+      }
+
+      const data = await response.json();
+
+      setDesk((prev) => ({ ...prev, suggestions: data.suggestions }));
+      setMessage("Suggestions generated successfully!");
+      navigate("/suggestions");
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (deskId) => {
@@ -160,7 +184,7 @@ const Upload = () => {
         <p className="italic">Max file size: 5MB</p>
 
         <h3 className="text-xl font-bold">Latest Photo</h3>
-        {/* Preview uploaded image */}
+
         {uploadedUrl ? (
           <div className="mt-4 flex flex-col items-left gap-2">
             <img
@@ -170,15 +194,12 @@ const Upload = () => {
             />
             <div className="flex gap-2 ">
               <button
-                onClick={
-                  desk.suggestions && desk.suggestions.length > 0
-                    ? navigate(`/suggestions`)
-                    : handleGenerateSuggestions
-                }
+                onClick={() => handleGenerateSuggestions(desk._id)}
+                disabled={loading}
                 className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
               >
                 {desk.suggestions && desk.suggestions.length > 0
-                  ? "Suggestions Generated"
+                  ? "Regenerate Suggestions"
                   : "Generate Suggestions"}
               </button>
               <button

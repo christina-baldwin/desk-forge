@@ -23,7 +23,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
         .json({ success: false, message: "Desk not found" });
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4-vision-preview",
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "user",
