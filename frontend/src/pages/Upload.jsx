@@ -213,6 +213,7 @@ const Upload = () => {
         ) : (
           <p>No photos yet, upload a photo to get started!</p>
         )}
+        {/* Might need a better way to display this later */}
         {message && <p className="mt-2 text-center">{message}</p>}
       </div>
     </div>

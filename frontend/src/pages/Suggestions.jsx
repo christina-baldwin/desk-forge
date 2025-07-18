@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
 
 // change this once on render
@@ -66,6 +65,9 @@ const Suggestions = () => {
             get started.
           </p>
         )}
+        {/* Might need a better way to display this later */}
+
+        {message && <p className="mt-2 text-center">{message}</p>}
       </div>
     </div>
   );
