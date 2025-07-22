@@ -8,7 +8,7 @@ const SideBar = () => {
           <li>Home</li>
         </Link>
         <Link to="/upload">
-          <li>Upload</li>
+          <li>Upload & Generate</li>
         </Link>
         <Link to="/suggestions">
           <li>Suggestions</li>
