@@ -30,7 +30,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
           content: [
             {
               type: "text",
-              text: "Use the uploaded image to give me 5 suggestions to improve my hobby desk setup, specifically for warhammer 40k, reference specific products if valid:",
+              text: "Use the uploaded image to give me 5 suggestions to improve my hobby desk setup, specifically for warhammer 40k, reference specific products if valid. Return them as a JSON array of objects, each with a 'title' and a 'description'. No markdown formatting, no asterisks.",
             },
             { type: "image_url", image_url: { url: desk.imageUrl } },
           ],
@@ -41,7 +41,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
 
     const aiMessage = response.choices[0]?.message?.content || "";
 
-    desk.suggestions = aiMessage.split("\n").filter((s) => s.trim() !== "");
+    desk.suggestions = JSON.parse(aiMessage);
     await desk.save();
 
     res.status(200).json({ success: true, suggestions: desk.suggestions });

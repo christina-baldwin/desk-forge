@@ -55,7 +55,9 @@ const Suggestions = () => {
             <h2 className="text-xl font-semibold">Suggestions:</h2>
             <ul className="list-disc list-inside">
               {desk.suggestions.map((suggestion, index) => (
-                <li key={index}>{suggestion}</li>
+                <li key={index}>
+                  <strong>{suggestion.title}</strong>: {suggestion.description}
+                </li>
               ))}
             </ul>
           </div>

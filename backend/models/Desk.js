@@ -14,7 +14,12 @@ const deskSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  suggestions: [{ type: String }],
+  suggestions: [
+    {
+      title: { type: String, required: true },
+      description: { type: String, required: true },
+    },
+  ],
 });
 
 const Desk = mongoose.model("Desk", deskSchema);
