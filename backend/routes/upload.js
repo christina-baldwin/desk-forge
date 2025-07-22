@@ -17,6 +17,7 @@ router.post("/", authenticate, upload.single("image"), async (req, res) => {
   try {
     //create temporary file
     const file = req.file;
+    const problems = req.body.problems;
 
     if (!file) {
       return res
@@ -36,6 +37,7 @@ router.post("/", authenticate, upload.single("image"), async (req, res) => {
     const newDesk = new Desk({
       userId: req.user.id,
       imageUrl: result.secure_url,
+      problems: problems,
       suggestions: [],
     });
 

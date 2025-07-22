@@ -14,6 +14,7 @@ const deskSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  problems: { type: String, default: "" },
   suggestions: [
     {
       title: { type: String, required: true },

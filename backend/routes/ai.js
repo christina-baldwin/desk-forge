@@ -30,7 +30,11 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
           content: [
             {
               type: "text",
-              text: "Use the uploaded image to give me 5 suggestions to improve my hobby desk setup, specifically for warhammer 40k, reference specific products if valid. Return them as a JSON array of objects, each with a 'title' and a 'description'. No markdown formatting, no asterisks.",
+              text: "Use the uploaded image and the below desk problems, if available, to give 5 suggestions to improve my hobby desk setup, specifically for warhammer 40k, reference specific products if valid. Return them as a JSON array of objects, each with a 'title' and a 'description'. No markdown formatting, no asterisks.",
+            },
+            {
+              type: "text",
+              text: `Desk problems I'd like fixed: ${desk.problems}`,
             },
             { type: "image_url", image_url: { url: desk.imageUrl } },
           ],

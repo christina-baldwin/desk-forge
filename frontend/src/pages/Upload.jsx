@@ -11,6 +11,7 @@ const Upload = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [desk, setDesk] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [problems, setProblems] = useState("");
   const fileInputRef = useRef();
 
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ const Upload = () => {
 
     const formData = new FormData();
     formData.append("image", file);
+    formData.append("problems", problems);
     const token = localStorage.getItem("token");
 
     try {
@@ -163,6 +165,13 @@ const Upload = () => {
         >
           {file ? file.name : "Add a file"}
         </button>
+
+        <input
+          type="text"
+          placeholder="Describe your key desk problems"
+          value={problems}
+          onChange={(e) => setProblems(e.target.value)}
+        />
 
         <div className="flex gap-2">
           <button
