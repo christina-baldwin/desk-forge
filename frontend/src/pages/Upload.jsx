@@ -192,6 +192,11 @@ const Upload = () => {
         <p className="italic">Accepted formats: JPG, PNG, GIF</p>
         <p className="italic">Max file size: 5MB</p>
 
+        {/* Create a pop-up that gives suggestions on the best way to take a photo and describe your problem to get the best suggestions */}
+        <button className="italic underline">
+          Click here for tips to get the best suggestions
+        </button>
+
         <h3 className="text-xl font-bold">Latest Photo</h3>
 
         {uploadedUrl ? (

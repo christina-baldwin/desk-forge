@@ -70,6 +70,11 @@ const Suggestions = () => {
           )}
         </div>
 
+        {/* Dont show older suggestions unless this button is clicked */}
+        <button className="mt-10 px-3 py-2 border-2 rounded-[5px] cursor-pointer">
+          Load older suggestions
+        </button>
+
         <div className="mt-10">
           <h2 className="text-xl font-semibold">Previous suggestions:</h2>
           {prevDesk &&
