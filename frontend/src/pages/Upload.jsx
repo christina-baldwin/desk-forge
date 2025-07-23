@@ -148,7 +148,9 @@ const Upload = () => {
     <div className="flex gap-4">
       <SideBar />
       <div className="flex flex-col gap-4 p-4 items-left">
-        <h1 className="text-2xl font-bold">Upload New Photo</h1>
+        <h1 className="text-2xl font-bold">
+          Upload Photo & Generate Suggestions
+        </h1>
 
         <input
           type="file"
@@ -193,20 +195,30 @@ const Upload = () => {
         <p className="italic">Max file size: 5MB</p>
 
         {/* Create a pop-up that gives suggestions on the best way to take a photo and describe your problem to get the best suggestions */}
-        <button className="italic underline cursor-pointer">
+        <button className="text-left italic underline cursor-pointer">
           Click here for tips to get the best suggestions
         </button>
 
         <h3 className="text-xl font-bold">Latest Photo</h3>
 
         {uploadedUrl ? (
-          <div className="mt-4 flex flex-col items-left gap-2">
+          <div className="max-w-xs mt-4 flex flex-col items-left gap-2">
             <img
               src={uploadedUrl}
               alt="Uploaded preview"
               className="max-w-xs max-h-64 rounded shadow"
             />
-            <div className="flex gap-2 ">
+            <p>
+              {desk.problems && desk.problems.length > 0
+                ? `Existing problems: ${desk.problems}`
+                : "No existing problems"}
+            </p>
+
+            {/* Need a patch request on the backend and to change to an input when clicked to edit problems */}
+            <button className="px-3 py-2 border-2 rounded-[5px] cursor-pointer">
+              Add/Edit Problems
+            </button>
+            <div className="flex gap-2">
               <button
                 onClick={() => handleGenerateSuggestions(desk._id)}
                 disabled={loading}
