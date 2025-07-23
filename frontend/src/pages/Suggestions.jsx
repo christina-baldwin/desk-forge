@@ -8,6 +8,7 @@ const Suggestions = () => {
   const [latestDesk, setLatestDesk] = useState(null);
   const [prevDesk, setPrevDesk] = useState(null);
   const [message, setMessage] = useState("");
+  const [visibleOlderSuggestions, setVisibleOlderSuggestions] = useState(false);
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -33,6 +34,10 @@ const Suggestions = () => {
 
     fetchDesks();
   }, []);
+
+  const handleViewOlderSuggestions = () => {
+    setVisibleOlderSuggestions(!visibleOlderSuggestions);
+  };
 
   return (
     <div className="flex gap-4">
@@ -70,12 +75,18 @@ const Suggestions = () => {
           )}
         </div>
 
-        {/* Dont show older suggestions unless this button is clicked */}
-        <button className="mt-10 px-3 py-2 border-2 rounded-[5px] cursor-pointer">
-          Load older suggestions
+        <button
+          onClick={handleViewOlderSuggestions}
+          className="mt-10 px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+        >
+          {visibleOlderSuggestions
+            ? "Hide older suggestions"
+            : "Load older suggestions"}
         </button>
 
-        <div className="mt-10">
+        <div
+          className={`mt-10 ${visibleOlderSuggestions ? "block" : "hidden"}`}
+        >
           <h2 className="text-xl font-semibold">Previous suggestions:</h2>
           {prevDesk &&
           prevDesk.suggestions &&

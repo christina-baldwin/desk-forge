@@ -199,7 +199,6 @@ const Upload = () => {
         <p className="italic">Accepted formats: JPG, PNG, GIF</p>
         <p className="italic">Max file size: 5MB</p>
 
-        {/* Create a pop-up that gives suggestions on the best way to take a photo and describe your problem to get the best suggestions */}
         <button
           onClick={handlePopupVisibility}
           className="text-left italic underline cursor-pointer"
