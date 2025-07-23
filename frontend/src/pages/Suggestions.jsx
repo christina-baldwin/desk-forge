@@ -55,7 +55,7 @@ const Suggestions = () => {
                 <img
                   src={latestDesk.imageUrl}
                   alt="Uploaded preview"
-                  className="max-w-xs max-h-64 rounded shadow"
+                  className="max-w-xs max-h-64 rounded shadow mb-2"
                 />
               </div>
               <ul className="list-disc list-inside">
@@ -96,7 +96,7 @@ const Suggestions = () => {
                 <img
                   src={prevDesk.imageUrl}
                   alt="Uploaded preview"
-                  className="max-w-xs max-h-64 rounded shadow"
+                  className="max-w-xs max-h-64 rounded shadow mb-2"
                 />
               </div>
               <ul className="list-disc list-inside">
