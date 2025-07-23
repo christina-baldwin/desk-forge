@@ -308,7 +308,7 @@ const Upload = () => {
                   onClick={() => setIsEditingProblems(true)}
                   className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
                 >
-                  Add/Edit Problems
+                  Change Problems
                 </button>
               </>
             )}
