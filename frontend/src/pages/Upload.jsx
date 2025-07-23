@@ -12,6 +12,7 @@ const Upload = () => {
   const [desk, setDesk] = useState(null);
   const [loading, setLoading] = useState(false);
   const [problems, setProblems] = useState("");
+  const [popupVisible, setPopupVisible] = useState(false);
   const fileInputRef = useRef();
 
   const navigate = useNavigate();
@@ -144,6 +145,10 @@ const Upload = () => {
     }
   };
 
+  const handlePopupVisibility = () => {
+    setPopupVisible(!popupVisible);
+  };
+
   return (
     <div className="flex gap-4">
       <SideBar />
@@ -195,9 +200,36 @@ const Upload = () => {
         <p className="italic">Max file size: 5MB</p>
 
         {/* Create a pop-up that gives suggestions on the best way to take a photo and describe your problem to get the best suggestions */}
-        <button className="text-left italic underline cursor-pointer">
+        <button
+          onClick={handlePopupVisibility}
+          className="text-left italic underline cursor-pointer"
+        >
           Click here for tips to get the best suggestions
         </button>
+
+        <div
+          className={`fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] ${
+            popupVisible ? "block" : "hidden"
+          }`}
+        >
+          <div className="flex flex-col gap-4 bg-white p-10 rounded shadow">
+            <h2 className="text-lg font-bold">
+              Tips for Getting the Best Suggestions
+            </h2>
+            <ul className="flex flex-col gap-2 list-disc pl-5">
+              <li>Ensure good lighting</li>
+              <li>Avoid cluttered backgrounds</li>
+              <li>Fit the whole desk in frame</li>
+              <li>Write a clear description of the problem</li>
+            </ul>
+            <button
+              onClick={handlePopupVisibility}
+              className="mt-4 px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
+        </div>
 
         <h3 className="text-xl font-bold">Latest Photo</h3>
 
