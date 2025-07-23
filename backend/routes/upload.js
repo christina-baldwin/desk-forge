@@ -125,4 +125,36 @@ router.delete("/desks/:id", authenticate, async (req, res) => {
   }
 });
 
+router.patch("/desks/:id", authenticate, async (req, res) => {
+  try {
+    const { problems } = req.body;
+    const deskId = req.params.id;
+
+    // find desk by ID and check it belongs to the user
+    const desk = await Desk.findOne({
+      _id: deskId,
+      userId: req.user.id,
+    });
+
+    if (!desk) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Desk not found" });
+    }
+
+    if (problems !== undefined) {
+      desk.problems = problems;
+    }
+
+    await desk.save();
+
+    res
+      .status(200)
+      .json({ success: true, message: "Desk updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to update desk" });
+  }
+});
+
 export default router;

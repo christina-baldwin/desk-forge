@@ -13,6 +13,8 @@ const Upload = () => {
   const [loading, setLoading] = useState(false);
   const [problems, setProblems] = useState("");
   const [popupVisible, setPopupVisible] = useState(false);
+  const [isEditingProblems, setIsEditingProblems] = useState(false);
+  const [newProblems, setNewProblems] = useState("");
   const fileInputRef = useRef();
 
   const navigate = useNavigate();
@@ -149,6 +151,33 @@ const Upload = () => {
     setPopupVisible(!popupVisible);
   };
 
+  const handleProblemsSave = async (deskId) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await fetch(`${apiUrl}/upload/desks/${deskId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ problems: newProblems }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update desk problems");
+      }
+
+      setDesk((prev) => ({ ...prev, problems: newProblems }));
+      setIsEditingProblems(false);
+      setError("");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <div className="flex gap-4">
       <SideBar />
@@ -239,16 +268,51 @@ const Upload = () => {
               alt="Uploaded preview"
               className="max-w-xs max-h-64 rounded shadow"
             />
-            <p>
-              {desk.problems && desk.problems.length > 0
-                ? `Existing problems: ${desk.problems}`
-                : "No existing problems"}
-            </p>
 
-            {/* Need a patch request on the backend and to change to an input when clicked to edit problems */}
-            <button className="px-3 py-2 border-2 rounded-[5px] cursor-pointer">
-              Add/Edit Problems
-            </button>
+            {isEditingProblems ? (
+              <>
+                <div className="flex flex-col gap-2 mb-2">
+                  <label>New Problems</label>
+                  <div>
+                    <input
+                      type="text"
+                      value={newProblems}
+                      onChange={(e) => setNewProblems(e.target.value)}
+                      className="px-2 py-1 border-1 rounded-[5px]"
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-2 mb-2">
+                  <button
+                    onClick={handleProblemsSave}
+                    className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => setIsEditingProblems(false)}
+                    className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p>
+                  {desk.problems && desk.problems.length > 0
+                    ? `Existing problems: ${desk.problems}`
+                    : "No existing problems"}
+                </p>
+                <button
+                  onClick={() => setIsEditingProblems(true)}
+                  className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                >
+                  Add/Edit Problems
+                </button>
+              </>
+            )}
+
             <div className="flex gap-2">
               <button
                 onClick={() => handleGenerateSuggestions(desk._id)}
