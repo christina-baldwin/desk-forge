@@ -51,8 +51,11 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-15">
-      <h2 className="text-5xl">Log in</h2>
-      <form onSubmit={handleLogin}>
+      <h2 className="font-mono text-5xl">Log in</h2>
+      <form
+        className="border-4 border-cyan-600 rounded px-20 pb-12 pt-4"
+        onSubmit={handleLogin}
+      >
         <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
           <p
             className={`text-sm text-red-600 transition-opacity duration-300 ${
@@ -63,7 +66,9 @@ const Login = () => {
           </p>
         </div>
         <div className="flex flex-col gap-2 mb-4">
-          <label htmlFor="email">Email</label>
+          <label className="font-sans" htmlFor="email">
+            Email
+          </label>
           <input
             type="email"
             id="email"
@@ -73,7 +78,9 @@ const Login = () => {
           />
         </div>
         <div className="flex flex-col gap-2 mb-4">
-          <label htmlFor="password">Password</label>
+          <label className="font-sans" htmlFor="password">
+            Password
+          </label>
           <input
             type="password"
             id="password"
@@ -84,19 +91,22 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+          className="px-4 py-2 bg-cyan-600 text-white text-lg border-black border-2 rounded cursor-pointer hover:bg-cyan-700 font-mono transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
         >
           Log In
         </button>
       </form>
 
-      <p>
+      <p className="mt-4 text-lg font-sans">
         Don’t have an account?{" "}
         <Link to="/register" className="underline">
           Register here
         </Link>
       </p>
-      <Link to="/" className="hover:underline">
+      <Link
+        to="/"
+        className="mt-4 text-lg font-sans text-cyan-600 font-bold hover:underline duration:200 transition-all"
+      >
         ← Back to Home
       </Link>
       <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
