@@ -11,7 +11,7 @@ import Settings from "./pages/Settings";
 
 export const App = () => {
   return (
-    <div className="bg-gray-50">
+    <div className="bg-teal-900">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
