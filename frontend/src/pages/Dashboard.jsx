@@ -49,34 +49,38 @@ const Dashboard = () => {
   return (
     <div className="flex gap-4">
       <SideBar />
-      <div className="flex flex-col gap-2 p-4">
-        <h1 className="text-2xl font-bold">Welcome Back!</h1>
-        <p>This is your dashboard!</p>
+      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-8 pl-10 pt-10 pb-60 pr-60">
+        <h1 className="font-heading text-dark text-2xl font-bold">
+          Welcome Back!
+        </h1>
+        <p className="font-body text-dark">This is your dashboard!</p>
         <div>
-          <h2 className="text-xl font-bold">Latest Upload</h2>
+          <h2 className="font-heading text-dark text-xl font-bold">
+            Latest Upload
+          </h2>
           {/* Preview uploaded image */}
           {uploadedUrl ? (
             <div className="mt-4 flex flex-col items-left gap-2">
               <img
                 src={uploadedUrl}
                 alt="Uploaded preview"
-                className="max-w-xs max-h-64 rounded shadow"
+                className="max-w-xs max-h-64 border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
               />
             </div>
           ) : (
             <p>No photos yet, upload a photo to see it here!</p>
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-6">
           <Link
             to="/upload"
-            className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
           >
             Upload Photo
           </Link>
           <Link
             to="/suggestions"
-            className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+            className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
           >
             View Suggestions
           </Link>
