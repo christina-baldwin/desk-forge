@@ -55,7 +55,7 @@ const Login = () => {
         DeskForge
       </h1>
       <div className="flex flex-col items-center gap-8 bg-light pt-30 pb-30 pl-60 pr-60 border-10 rounded-lg shadow-lg">
-        <h2 className="font-heading text-5xl">Log in</h2>
+        <h2 className="font-heading text-dark text-5xl">Log in</h2>
         <form onSubmit={handleLogin}>
           <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
             <p
@@ -94,11 +94,11 @@ const Login = () => {
             type="submit"
             className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
           >
-            Log In
+            lOGIN
           </button>
         </form>
 
-        <p className="mt-4 text-lg italic font-body">
+        <p className="font-body text-dark mt-4 text-lg italic">
           Don’t have an account?{" "}
           <Link to="/register" className="underline">
             Register here

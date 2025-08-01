@@ -66,92 +66,97 @@ const Register = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-15">
-      <h2 className="font-mono text-5xl">Register</h2>
-      <form
-        className="border-4 border-cyan-600 rounded px-20 pb-12 pt-4"
-        onSubmit={handleRegister}
-      >
-        <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
-          <p
-            className={`text-sm text-red-600 transition-opacity duration-300 ${
-              error ? "opacity-100" : "opacity-0"
-            }`}
+      <h1 className="font-logo text-light text-4xl drop-shadow-[3px_3px_0_#000000]">
+        DeskForge
+      </h1>
+      <div className="flex flex-col items-center gap-8 bg-light pt-30 pb-30 pl-60 pr-60 border-10 rounded-lg shadow-lg">
+        <form onSubmit={handleRegister}>
+          <h2 className="font-heading text-dark text-5xl">Register</h2>
+          <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
+            <p
+              className={`text-sm text-red-600 transition-opacity duration-300 ${
+                error ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {error || "placeholder"}
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 mb-4">
+            <label className="font-heading text-dark" htmlFor="name">
+              Full name
+            </label>
+            <input
+              type="text"
+              id="name"
+              placeholder="yourfullname"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="font-body text-dark px-2 py-1 border-1 rounded-[5px]"
+            />
+          </div>
+          <div className="flex flex-col gap-2 mb-4">
+            <label className="font-heading text-dark" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="font-body text-darkpx-2 py-1 border-1 rounded-[5px]"
+            />
+          </div>
+          <div className="flex flex-col gap-2 mb-4">
+            <label className="font-heading text-dark" htmlFor="password">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="font-body text-dark px-2 py-1 border-1 rounded-[5px]"
+            />
+          </div>
+          <div className="flex flex-col gap-2 mb-4">
+            <label
+              className="font-heading text-dark"
+              htmlFor="confirm-password"
+            >
+              Confirm password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              placeholder="••••••••"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="font-body text-dark px-2 py-1 border-1 rounded-[5px]"
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
           >
-            {error || "placeholder"}
-          </p>
-        </div>
-        <div className="flex flex-col gap-2 mb-4">
-          <label className="font-sans" htmlFor="name">
-            Full name
-          </label>
-          <input
-            type="text"
-            id="name"
-            placeholder="yourfullname"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="px-2 py-1 border-1 rounded-[5px]"
-          />
-        </div>
-        <div className="flex flex-col gap-2 mb-4">
-          <label className="font-sans" htmlFor="email">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="px-2 py-1 border-1 rounded-[5px]"
-          />
-        </div>
-        <div className="flex flex-col gap-2 mb-4">
-          <label className="font-sans" htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="px-2 py-1 border-1 rounded-[5px]"
-          />
-        </div>
-        <div className="flex flex-col gap-2 mb-4">
-          <label className="font-sans" htmlFor="confirm-password">
-            Confirm password
-          </label>
-          <input
-            type="password"
-            id="confirm-password"
-            placeholder="••••••••"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="px-2 py-1 border-1 rounded-[5px]"
-          />
-        </div>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-cyan-600 text-white text-lg border-black border-2 rounded cursor-pointer hover:bg-cyan-700 font-mono transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
-        >
-          Register
-        </button>
-      </form>
+            REGISTER
+          </button>
+        </form>
 
-      <p className="mt-4 text-lg font-sans">
-        Already have an account?{" "}
-        <Link to="/login" className="underline">
-          Log in
+        <p className="font-body text-dark mt-4 text-lg italic">
+          Already have an account?{" "}
+          <Link to="/login" className="underline">
+            Log in
+          </Link>
+        </p>
+        <Link
+          to="/"
+          className="mt-4 text-lg font-heading text-dark font-bold hover:underline duration:200 transition-all"
+        >
+          ← Back to Home
         </Link>
-      </p>
-      <Link
-        to="/"
-        className="mt-4 text-lg font-sans text-cyan-600 font-bold hover:underline duration:200 transition-all"
-      >
-        ← Back to Home
-      </Link>
+      </div>
     </div>
   );
 };
