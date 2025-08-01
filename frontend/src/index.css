@@ -5,13 +5,8 @@
   --color-light: theme(colors.slate.100);
   --color-dark: theme(colors.slate.900);
   --color-accent: theme(colors.red.400);
-}
 
-/* TODO: add font families */
-/* fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        mono: ["Share Tech Mono", "monospace"],
-        tech: ["Chakra Petch", "sans-serif"],
-        logo: ["Bungee", "cursive"],
-      },
-    }, */
+  --font-logo: "Bungee", cursive;
+  --font-body: "Inter", sans-serif;
+  --font-heading: "Share Tech Mono", monospace;
+}
