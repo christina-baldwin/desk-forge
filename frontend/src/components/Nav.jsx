@@ -42,16 +42,20 @@ const Nav = () => {
   }, []);
 
   return (
-    <div className="flex flex-row justify-between items-center p-4 mb-4">
-      <div className="flex flex-row items-center gap-4">
-        <img src="/DF-logo-simple.png" alt="Logo" className="w-8" />
-        <p>Hi, {userName || "..."}!</p>
+    <div className="flex flex-row justify-between items-center p-4 mb-4 ">
+      <div className="flex flex-row items-center gap-8">
+        <p className="font-logo text-light text-4xl drop-shadow-[3px_3px_0_#000000]">
+          DF
+        </p>
+        <p className="font-heading text-light text-xl drop-shadow-[3px_3px_0_#000000]">
+          Hi, {userName || "..."}!
+        </p>
       </div>
       <button
         onClick={handleLogout}
-        className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+        className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
       >
-        Logout
+        LOGOUT
       </button>
     </div>
   );
