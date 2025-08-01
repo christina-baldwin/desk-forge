@@ -2,19 +2,27 @@ import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <div>
-      <ul className="flex flex-col gap-2 p-4">
+    <div className="bg-light border-6 rounded-lg shadow-lg min-h-screen">
+      <ul className="flex flex-col gap-4 p-4">
         <Link to="/dashboard">
-          <li>Home</li>
+          <li className="font-heading text-dark text-lg hover:underline">
+            Home
+          </li>
         </Link>
         <Link to="/upload">
-          <li>Upload & Generate</li>
+          <li className="font-heading text-dark text-lg hover:underline">
+            Upload & Generate
+          </li>
         </Link>
         <Link to="/suggestions">
-          <li>Suggestions</li>
+          <li className="font-heading text-dark text-lg hover:underline">
+            Suggestions
+          </li>
         </Link>
         <Link to="/settings">
-          <li>Settings</li>
+          <li className="font-heading text-dark text-lg hover:underline">
+            Settings
+          </li>
         </Link>
       </ul>
     </div>
