@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import SideBar from "../components/SideBar";
+import Nav from "../components/Nav";
 
 // change this once on render
 const apiUrl = "http://localhost:8080";
@@ -49,7 +50,7 @@ const Dashboard = () => {
   return (
     <div className="flex gap-4">
       <SideBar />
-      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-8 pl-10 pt-10 pb-60 pr-60">
+      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-8 pl-10 pt-10 pr-60 min-h-280 min-w-280 overflow-auto">
         <h1 className="font-heading text-dark text-2xl font-bold">
           Welcome Back!
         </h1>

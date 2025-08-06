@@ -181,8 +181,8 @@ const Upload = () => {
   return (
     <div className="flex gap-4">
       <SideBar />
-      <div className="flex flex-col gap-4 p-4 items-left">
-        <h1 className="text-2xl font-bold">
+      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pr-60 min-h-280 min-w-280 overflow-auto">
+        <h1 className="font-heading text-dark text-2xl font-bold">
           Upload Photo & Generate Suggestions
         </h1>
 
@@ -197,7 +197,7 @@ const Upload = () => {
 
         <button
           onClick={handleSelectClick}
-          className="underline px-4 py-2 border rounded cursor-pointer"
+          className="px-4 py-2 bg-light text-dark text-lg rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] underline"
         >
           {file ? file.name : "Add a file"}
         </button>
@@ -207,44 +207,28 @@ const Upload = () => {
           placeholder="Describe your key desk problems"
           value={problems}
           onChange={(e) => setProblems(e.target.value)}
+          className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2"
         />
-
-        <div className="flex gap-2">
-          <button
-            onClick={handleUpload}
-            className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-          >
-            Upload
-          </button>
-
-          <button
-            onClick={handleCancel}
-            className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-          >
-            Cancel
-          </button>
-        </div>
-
-        <p className="italic">Accepted formats: JPG, PNG, GIF</p>
-        <p className="italic">Max file size: 5MB</p>
 
         <button
           onClick={handlePopupVisibility}
-          className="text-left italic underline cursor-pointer"
+          className="text-left italic underline cursor-pointer mb-4"
         >
-          Click here for tips to get the best suggestions
+          Click here for tips & requirements
         </button>
 
         <div
-          className={`fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] ${
+          className={`fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-50 ${
             popupVisible ? "block" : "hidden"
           }`}
         >
-          <div className="flex flex-col gap-4 bg-white p-10 rounded shadow">
-            <h2 className="text-lg font-bold">
-              Tips for Getting the Best Suggestions
+          <div className="flex flex-col gap-6 bg-light rounded-lg p-20 max-w-lg border-accent border-4 shadow-[0_0_0_4px_black]">
+            <h2 className="text-2xl font-heading text-dark font-bold">
+              Tips & Requirements
             </h2>
-            <ul className="flex flex-col gap-2 list-disc pl-5">
+            <ul className="flex flex-col gap-2 font-body list-disc pl-5 italic">
+              <li>Accepted formats: JPG, PNG, GIF</li>
+              <li>Max file size: 5MB</li>
               <li>Ensure good lighting</li>
               <li>Avoid cluttered backgrounds</li>
               <li>Fit the whole desk in frame</li>
@@ -252,21 +236,37 @@ const Upload = () => {
             </ul>
             <button
               onClick={handlePopupVisibility}
-              className="mt-4 px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+              className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
             >
               Close
             </button>
           </div>
         </div>
 
+        <div className="flex gap-6">
+          <button
+            onClick={handleUpload}
+            className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+          >
+            Upload
+          </button>
+
+          <button
+            onClick={handleCancel}
+            className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+          >
+            Cancel
+          </button>
+        </div>
+
         <h3 className="text-xl font-bold">Latest Photo</h3>
 
         {uploadedUrl ? (
-          <div className="max-w-xs mt-4 flex flex-col items-left gap-2">
+          <div className="max-w-md mt-4 flex flex-col items-left gap-2">
             <img
               src={uploadedUrl}
               alt="Uploaded preview"
-              className="max-w-xs max-h-64 rounded shadow"
+              className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
             />
 
             {isEditingProblems ? (
@@ -291,33 +291,33 @@ const Upload = () => {
                   </button>
                   <button
                     onClick={() => setIsEditingProblems(false)}
-                    className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                    className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
                   >
                     Cancel
                   </button>
                 </div>
               </>
             ) : (
-              <>
-                <p>
+              <div className="flex gap-4 items-center mb-4 px-4 py-4 border-2 text-dark font-body rounded-[5px]">
+                <p className="font-body text-dark italic">
                   {desk.problems && desk.problems.length > 0
                     ? `Existing problems: ${desk.problems}`
                     : "No existing problems"}
                 </p>
                 <button
                   onClick={() => setIsEditingProblems(true)}
-                  className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                  className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
                 >
-                  Change Problems
+                  Edit
                 </button>
-              </>
+              </div>
             )}
 
-            <div className="flex gap-2">
+            <div className="flex gap-6">
               <button
                 onClick={() => handleGenerateSuggestions(desk._id)}
                 disabled={loading}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
               >
                 {desk.suggestions && desk.suggestions.length > 0
                   ? "Regenerate Suggestions"
@@ -325,7 +325,7 @@ const Upload = () => {
               </button>
               <button
                 onClick={() => handleDelete(desk._id)}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
               >
                 Delete
               </button>
