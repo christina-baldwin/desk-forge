@@ -272,20 +272,20 @@ const Upload = () => {
             {isEditingProblems ? (
               <>
                 <div className="flex flex-col gap-2 mb-2">
-                  <label>New Problems</label>
                   <div>
                     <input
                       type="text"
                       value={newProblems}
+                      placeholder="Your edited desk problems"
                       onChange={(e) => setNewProblems(e.target.value)}
-                      className="px-2 py-1 border-1 rounded-[5px]"
+                      className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2"
                     />
                   </div>
                 </div>
-                <div className="flex gap-2 mb-2">
+                <div className="flex gap-4 mb-4">
                   <button
                     onClick={handleProblemsSave}
-                    className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                    className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
                   >
                     Save
                   </button>
