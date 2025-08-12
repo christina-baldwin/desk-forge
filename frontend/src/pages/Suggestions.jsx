@@ -42,11 +42,15 @@ const Suggestions = () => {
   return (
     <div className="flex gap-4">
       <SideBar />
-      <div className="flex-1 p-4">
-        <h1 className="text-2xl font-bold">Suggestions</h1>
+      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pb-10 pr-60 h-280 w-280 overflow-auto">
+        <h1 className="font-heading text-dark text-3xl font-bold">
+          Suggestions
+        </h1>
 
-        <div className="mt-10">
-          <h2 className="text-xl font-semibold">Latest suggestions:</h2>
+        <div>
+          <h2 className="font-heading text-dark text-xl font-semibold">
+            Latest suggestions:
+          </h2>
           {latestDesk &&
           latestDesk.suggestions &&
           latestDesk.suggestions.length > 0 ? (
@@ -55,10 +59,10 @@ const Suggestions = () => {
                 <img
                   src={latestDesk.imageUrl}
                   alt="Uploaded preview"
-                  className="max-w-xs max-h-64 rounded shadow mb-2"
+                  className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
                 />
               </div>
-              <ul className="list-disc list-inside">
+              <ul className="font-body list-disc list-inside flex flex-col gap-3">
                 {latestDesk.suggestions.map((suggestion, index) => (
                   <li key={index}>
                     <strong>{suggestion.title}</strong>:{" "}
@@ -77,7 +81,7 @@ const Suggestions = () => {
 
         <button
           onClick={handleViewOlderSuggestions}
-          className="mt-10 px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+          className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
         >
           {visibleOlderSuggestions
             ? "Hide older suggestions"
@@ -87,7 +91,9 @@ const Suggestions = () => {
         <div
           className={`mt-10 ${visibleOlderSuggestions ? "block" : "hidden"}`}
         >
-          <h2 className="text-xl font-semibold">Previous suggestions:</h2>
+          <h2 className="font-heading text-dark text-xl font-semibold">
+            Previous suggestions:
+          </h2>
           {prevDesk &&
           prevDesk.suggestions &&
           prevDesk.suggestions.length > 0 ? (
@@ -96,10 +102,10 @@ const Suggestions = () => {
                 <img
                   src={prevDesk.imageUrl}
                   alt="Uploaded preview"
-                  className="max-w-xs max-h-64 rounded shadow mb-2"
+                  className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
                 />
               </div>
-              <ul className="list-disc list-inside">
+              <ul className="font-body list-disc list-inside flex flex-col gap-3">
                 {prevDesk.suggestions.map((suggestion, index) => (
                   <li key={index}>
                     <strong>{suggestion.title}</strong>:{" "}
