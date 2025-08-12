@@ -54,7 +54,18 @@ const Dashboard = () => {
         <h1 className="font-heading text-dark text-3xl font-bold">
           Welcome Back!
         </h1>
-        <p className="font-body text-dark">This is your dashboard!</p>
+        {/* need to add this: dynamically add since last logged in and last uploaded */}
+        <div>
+          <p className="font-body text-dark">Last logged in: [date/time]</p>
+          <p className="font-body text-dark">
+            You last uploaded a desk photo [X] days ago!
+          </p>
+        </div>
+        {/* need to add this: generate an ai desk summary, include here */}
+        <div className="bg-slate-100 border border-slate-300 p-4 rounded-md mb-6">
+          <h2 className="text-lg font-heading text-dark mb-2">Quick Summary</h2>
+          <p className="font-body text-dark">[Include desk summary here]</p>
+        </div>
         <div>
           <h2 className="font-heading text-dark text-xl font-bold">
             Latest Upload
