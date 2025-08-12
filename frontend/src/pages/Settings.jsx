@@ -136,141 +136,151 @@ const Settings = () => {
   return (
     <div className="flex gap-4">
       <SideBar />
-      <div className="flex-1 p-4">
-        <h1 className="text-2xl font-bold mb-4">Settings</h1>
-        <h3 className="text-lg font-bold mb-2">Name</h3>
-        {isEditingName ? (
-          <>
-            <div className="flex flex-col gap-2 mb-2">
-              <label>New Name</label>
-              <div>
-                <input
-                  type="text"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  className="px-2 py-1 border-1 rounded-[5px]"
-                />
+      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pb-10 pr-60 h-280 w-280 overflow-auto">
+        <div className="flex-1 gap-4 p-4">
+          <h1 className="font-heading text-dark text-3xl font-bold mb-4">
+            Settings
+          </h1>
+          <h3 className="font-heading text-dark text-xl font-semibold">Name</h3>
+          {isEditingName ? (
+            <>
+              <div className="flex flex-col gap-2 mb-2">
+                <label className="font-body text-dark">New Name</label>
+                <div>
+                  <input
+                    type="text"
+                    value={newName}
+                    onChange={(e) => setNewName(e.target.value)}
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex gap-2 mb-2">
+              <div className="flex gap-4 mb-4">
+                <button
+                  onClick={handleNameSave}
+                  className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setIsEditingName(false)}
+                  className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="mb-4">
+              <p className="font-body text-lg mb-2">{userName}</p>
               <button
-                onClick={handleNameSave}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                onClick={() => setIsEditingName(true)}
+                className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
               >
-                Save
-              </button>
-              <button
-                onClick={() => setIsEditingName(false)}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-              >
-                Cancel
+                Change Name
               </button>
             </div>
-          </>
-        ) : (
-          <>
-            <p className="text-lg mb-2">{userName}</p>
-            <button
-              onClick={() => setIsEditingName(true)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer mb-2"
-            >
-              Change Name
-            </button>
-          </>
-        )}
+          )}
 
-        <h3 className="text-lg font-bold mb-2">Email</h3>
-        {isEditingEmail ? (
-          <>
-            <div className="flex flex-col gap-2 mb-2">
-              <label>New Email</label>
-              <div>
-                <input
-                  type="text"
-                  value={newEmail}
-                  onChange={(e) => setNewEmail(e.target.value)}
-                  className="px-2 py-1 border-1 rounded-[5px]"
-                />
+          <h3 className="font-heading text-dark text-xl font-semibold">
+            Email
+          </h3>
+          {isEditingEmail ? (
+            <>
+              <div className="flex flex-col gap-2 mb-2">
+                <label className="font-body text-dark">New Email</label>
+                <div>
+                  <input
+                    type="text"
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex gap-2 mb-2">
+              <div className="flex gap-4 mb-2">
+                <button
+                  onClick={handleEmailSave}
+                  className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setIsEditingEmail(false)}
+                  className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="mb-4">
+              <p className="font-body text-lg mb-2">{userEmail}</p>
               <button
-                onClick={handleEmailSave}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                onClick={() => setIsEditingEmail(true)}
+                className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
               >
-                Save
-              </button>
-              <button
-                onClick={() => setIsEditingEmail(false)}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-              >
-                Cancel
+                Change Email
               </button>
             </div>
-          </>
-        ) : (
-          <>
-            <p className="text-lg mb-2">{userEmail}</p>
-            <button
-              onClick={() => setIsEditingEmail(true)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer mb-2"
-            >
-              Change Email
-            </button>
-          </>
-        )}
+          )}
 
-        <h3 className="text-lg font-bold mb-2">Password</h3>
-        {isEditingPassword ? (
-          <>
-            <div className="flex flex-col gap-2 mb-2">
-              <label>New Password</label>
-              <div>
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="px-2 py-1 border-1 rounded-[5px] "
-                />
+          <h3 className="font-heading text-dark text-xl font-semibold">
+            Password
+          </h3>
+          {isEditingPassword ? (
+            <>
+              <div className="flex flex-col gap-2 mb-2">
+                <label className="font-body text-dark">New Password</label>
+                <div>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col gap-2 mb-2">
-              <label>Confirm New Password</label>
-              <div>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="px-2 py-1 border-1 rounded-[5px]"
-                />
+              <div className="flex flex-col gap-2 mb-2">
+                <label className="font-body text-dark">
+                  Confirm New Password
+                </label>
+                <div>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="flex gap-2">
+              <div className="flex gap-4">
+                <button
+                  onClick={handlePasswordSave}
+                  className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setIsEditingPassword(false)}
+                  className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="font-body text-lg mb-2">********</p>
               <button
-                onClick={handlePasswordSave}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
+                onClick={() => setIsEditingPassword(true)}
+                className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
               >
-                Save
+                Change Password
               </button>
-              <button
-                onClick={() => setIsEditingPassword(false)}
-                className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-              >
-                Cancel
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <p className="text-lg mb-2">********</p>
-            <button
-              onClick={() => setIsEditingPassword(true)}
-              className="px-3 py-2 border-2 rounded-[5px] cursor-pointer"
-            >
-              Change Password
-            </button>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
