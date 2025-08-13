@@ -70,7 +70,7 @@ const Dashboard = () => {
           <h2 className="font-heading text-dark text-xl font-bold">
             Latest Upload
           </h2>
-          {/* Preview uploaded image */}
+
           {uploadedUrl ? (
             <div className="mt-4 flex flex-col items-left gap-2">
               <img
