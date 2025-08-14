@@ -69,7 +69,7 @@ const Register = () => {
       <h1 className="font-logo text-light text-4xl drop-shadow-[3px_3px_0_#000000]">
         DeskForge
       </h1>
-      <div className="flex flex-col items-center gap-8 bg-light pt-30 pb-30 pl-60 pr-60 border-10 rounded-lg shadow-lg">
+      <div className="flex flex-col items-center justify-center gap-8 bg-light pt-30 pb-30 pl-60 pr-60 border-10 rounded-lg shadow-lg w-200 h-220">
         <form onSubmit={handleRegister}>
           <h2 className="font-heading text-dark text-5xl">Register</h2>
           <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
