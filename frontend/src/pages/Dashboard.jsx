@@ -109,7 +109,7 @@ const Dashboard = () => {
           </p>
         </div>
         {/* need to add this: generate an ai desk summary, include here */}
-        <div className="bg-slate-100 border border-slate-300 p-4 rounded-md mb-6">
+        <div className="mb-4 px-5 py-8 border-2 text-dark font-body rounded-[5px]">
           <h2 className="text-lg font-heading text-dark mb-2">Quick Summary</h2>
           <p className="font-body text-dark">{desk?.summary}</p>
         </div>
