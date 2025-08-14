@@ -25,10 +25,13 @@ const Landing = () => {
           Smarter Desks. Smarter Hobbies.
         </h2>
         <p className="font-body text-center text-xl/10 p-8 mb-12">
-          AI-powered feedback to optimise your hobby desk setup. Engineered for
-          building and painting. Elevate your crafting station with tailored
-          insights designed to enhance precision, comfort, and creativity for
-          every step of your creative journey.
+          Do you get frustrated whenever you sit down to build or paint your
+          miniatures? Do you wish your hobby desk worked better for you?
+          DeskForge can help with that! Providing you with AI-powered feedback
+          to help you optimise your hobby space! All you have to do is upload a
+          photo of your current desk space and we give you tailored insights
+          designed to enhance your creative journey. Just make an account and
+          give it a go!
         </p>
         <img
           src="/hero-img-crop.png"
