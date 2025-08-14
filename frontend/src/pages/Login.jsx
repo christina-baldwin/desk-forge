@@ -94,7 +94,7 @@ const Login = () => {
             type="submit"
             className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
           >
-            lOGIN
+            LOGIN
           </button>
         </form>
 

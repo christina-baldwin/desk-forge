@@ -97,6 +97,16 @@ const Upload = () => {
     setMessage("");
   };
 
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setFile(e.dataTransfer.files[0]);
+    setMessage("");
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
   const handleGenerateSuggestions = async (deskId) => {
     setLoading(true);
     const token = localStorage.getItem("token");
@@ -203,9 +213,11 @@ const Upload = () => {
 
         <button
           onClick={handleSelectClick}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
           className="px-4 py-2 bg-light text-dark text-lg rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] underline"
         >
-          {file ? file.name : "Add a file"}
+          {file ? file.name : "Add a file or drag it here"}
         </button>
 
         <input
