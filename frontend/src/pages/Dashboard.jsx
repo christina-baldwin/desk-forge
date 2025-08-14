@@ -105,7 +105,7 @@ const Dashboard = () => {
             Last logged in: {formatDate(previousLogin) || formatDate(lastLogin)}
           </p>
           <p className="font-body text-dark">
-            You last uploaded a desk photo {formatDate(desk.createdAt)}!
+            You last uploaded a desk photo {formatDate(desk?.createdAt)}!
           </p>
         </div>
         {/* need to add this: generate an ai desk summary, include here */}
