@@ -110,7 +110,9 @@ const Dashboard = () => {
         </div>
         {/* need to add this: generate an ai desk summary, include here */}
         <div className="mb-4 px-5 py-8 border-2 text-dark font-body rounded-[5px]">
-          <h2 className="text-lg font-heading text-dark mb-2">Quick Summary</h2>
+          <h2 className="text-lg font-heading text-dark mb-2">
+            Summary of Your Latest Desk
+          </h2>
           <p className="font-body text-dark">{desk?.summary}</p>
         </div>
         <div>
