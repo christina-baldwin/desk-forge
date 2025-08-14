@@ -151,7 +151,7 @@ const Settings = () => {
                     type="text"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                 </div>
               </div>
@@ -194,7 +194,7 @@ const Settings = () => {
                     type="text"
                     value={newEmail}
                     onChange={(e) => setNewEmail(e.target.value)}
-                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                 </div>
               </div>
@@ -237,7 +237,7 @@ const Settings = () => {
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                 </div>
               </div>
@@ -250,7 +250,7 @@ const Settings = () => {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2"
+                    className="px-4 py-2 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                 </div>
               </div>

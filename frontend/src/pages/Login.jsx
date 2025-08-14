@@ -54,7 +54,7 @@ const Login = () => {
       <h1 className="font-logo text-light text-4xl drop-shadow-[3px_3px_0_#000000]">
         DeskForge
       </h1>
-      <div className="flex flex-col items-center justify-center gap-8 bg-light pt-30 pb-30 pl-60 pr-60 border-10 rounded-lg shadow-lg w-200 h-220">
+      <div className="flex flex-col items-center justify-center gap-8 bg-light border-10 rounded-lg shadow-lg w-200 h-220">
         <h2 className="font-heading text-dark text-5xl">Log in</h2>
         <form onSubmit={handleLogin}>
           <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
@@ -75,7 +75,7 @@ const Login = () => {
               id="email"
               placeholder="you@example.com"
               onChange={(e) => setEmail(e.target.value)}
-              className="font-body px-2 py-1 border-1 rounded-[5px]"
+              className="font-body px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
@@ -87,7 +87,7 @@ const Login = () => {
               id="password"
               placeholder="••••••••"
               onChange={(e) => setPassword(e.target.value)}
-              className="font-body px-2 py-1 border-1 rounded-[5px]"
+              className="font-body px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <button

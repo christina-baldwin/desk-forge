@@ -225,7 +225,7 @@ const Upload = () => {
           placeholder="Describe your key desk problems"
           value={problems}
           onChange={(e) => setProblems(e.target.value)}
-          className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2"
+          className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
         />
 
         <button
@@ -296,7 +296,7 @@ const Upload = () => {
                       value={newProblems}
                       placeholder="Your edited desk problems"
                       onChange={(e) => setNewProblems(e.target.value)}
-                      className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2"
+                      className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
                     />
                   </div>
                 </div>

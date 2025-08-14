@@ -69,7 +69,7 @@ const Register = () => {
       <h1 className="font-logo text-light text-4xl drop-shadow-[3px_3px_0_#000000]">
         DeskForge
       </h1>
-      <div className="flex flex-col items-center justify-center gap-8 bg-light pt-30 pb-30 pl-60 pr-60 border-10 rounded-lg shadow-lg w-200 h-220">
+      <div className="flex flex-col items-center justify-center gap-8 bg-light border-10 rounded-lg shadow-lg w-200 h-220">
         <form onSubmit={handleRegister}>
           <h2 className="font-heading text-dark text-5xl">Register</h2>
           <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
@@ -91,7 +91,7 @@ const Register = () => {
               placeholder="yourfullname"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="font-body text-dark px-2 py-1 border-1 rounded-[5px]"
+              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
@@ -104,7 +104,7 @@ const Register = () => {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="font-body text-darkpx-2 py-1 border-1 rounded-[5px]"
+              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
@@ -117,7 +117,7 @@ const Register = () => {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="font-body text-dark px-2 py-1 border-1 rounded-[5px]"
+              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
@@ -133,7 +133,7 @@ const Register = () => {
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="font-body text-dark px-2 py-1 border-1 rounded-[5px]"
+              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
           <button
