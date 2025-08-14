@@ -71,7 +71,7 @@ const Dashboard = () => {
     fetchDesks();
   }, []);
 
-  const formatLoginDate = (dateString) => {
+  const formatDate = (dateString) => {
     if (!dateString) return "Never";
 
     const date = new Date(dateString);
@@ -102,11 +102,10 @@ const Dashboard = () => {
         {/* need to add this: dynamically add since last logged in and last uploaded */}
         <div>
           <p className="font-body text-dark">
-            Last logged in:{" "}
-            {formatLoginDate(previousLogin) || formatLoginDate(lastLogin)}
+            Last logged in: {formatDate(previousLogin) || formatDate(lastLogin)}
           </p>
           <p className="font-body text-dark">
-            You last uploaded a desk photo [X] days ago!
+            You last uploaded a desk photo {formatDate(desk.createdAt)}!
           </p>
         </div>
         {/* need to add this: generate an ai desk summary, include here */}
