@@ -46,6 +46,23 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
     const aiMessage = response.choices[0]?.message?.content || "";
 
     desk.suggestions = JSON.parse(aiMessage);
+
+    const summaryPrompt = `Here are the desk problems ${
+      desk.problems
+    } and here are the ai-generated suggestions ${desk.suggestions
+      .map((s) => `${s.title}: ${s.description}`)
+      .join(
+        "\n"
+      )}. Using these, write a short 1 sentence summary highlighting only the key issues and solutions for my warhammer hobby desk setup`;
+
+    const summaryResponse = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: summaryPrompt }],
+      max_tokens: 150,
+    });
+
+    desk.summary = summaryResponse.choices[0]?.message?.content || "";
+
     await desk.save();
 
     res.status(200).json({ success: true, suggestions: desk.suggestions });
