@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import SideBar from "../components/SideBar";
-import Nav from "../components/Nav";
 
 // change this once on render
 const apiUrl = "http://localhost:8080";
@@ -11,6 +10,8 @@ const apiUrl = "http://localhost:8080";
 const Dashboard = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [desk, setDesk] = useState(null);
+  const [lastLogin, setLastLogin] = useState("");
+  const [previousLogin, setPreviousLogin] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,6 +22,37 @@ const Dashboard = () => {
       return;
     }
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const res = await fetch(`${apiUrl}/auth/user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!res.ok) throw new Error("Failed to fetch user");
+        const data = await res.json();
+        console.log(data);
+
+        setLastLogin(
+          data.user.lastLogin
+            ? new Date(data.user.lastLogin).toLocaleString()
+            : ""
+        );
+        setPreviousLogin(
+          data.user.previousLogin
+            ? new Date(data.user.previousLogin).toLocaleString()
+            : ""
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -56,7 +88,9 @@ const Dashboard = () => {
         </h1>
         {/* need to add this: dynamically add since last logged in and last uploaded */}
         <div>
-          <p className="font-body text-dark">Last logged in: [date/time]</p>
+          <p className="font-body text-dark">
+            Last logged in: {previousLogin || lastLogin || "Never"}
+          </p>
           <p className="font-body text-dark">
             You last uploaded a desk photo [X] days ago!
           </p>

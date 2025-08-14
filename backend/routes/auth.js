@@ -76,7 +76,18 @@ router.post("/login", async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.status(200).json({ success: true, message: "Logged in", token });
+    user.previousLogin = user.lastLogin;
+    user.lastLogin = new Date();
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Logged in",
+      token,
+      lastLogin: user.lastLogin,
+      previousLogin: user.previousLogin,
+    });
   } catch (error) {
     res
       .status(500)
@@ -87,7 +98,9 @@ router.post("/login", async (req, res) => {
 // user info
 router.get("/user", authenticate, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("name email");
+    const user = await User.findById(req.user.id).select(
+      "name email lastLogin previousLogin"
+    );
 
     res.status(200).json({ success: true, user });
   } catch (error) {
