@@ -126,6 +126,12 @@ const Upload = () => {
   };
 
   const handleDelete = async (deskId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this desk?"
+    );
+
+    if (!confirmDelete) return;
+
     const token = localStorage.getItem("token");
 
     try {
