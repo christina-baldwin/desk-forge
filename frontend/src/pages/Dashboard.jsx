@@ -36,16 +36,8 @@ const Dashboard = () => {
         const data = await res.json();
         console.log(data);
 
-        setLastLogin(
-          data.user.lastLogin
-            ? new Date(data.user.lastLogin).toLocaleString()
-            : ""
-        );
-        setPreviousLogin(
-          data.user.previousLogin
-            ? new Date(data.user.previousLogin).toLocaleString()
-            : ""
-        );
+        setLastLogin(data.user.lastLogin || "");
+        setPreviousLogin(data.user.previousLogin || "");
       } catch (err) {
         console.error(err);
       }
@@ -79,6 +71,27 @@ const Dashboard = () => {
     fetchDesks();
   }, []);
 
+  const formatLoginDate = (dateString) => {
+    if (!dateString) return "Never";
+
+    const date = new Date(dateString);
+    const now = new Date();
+
+    const dateOnly = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    );
+    const nowOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const diffTime = nowOnly - dateOnly;
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "Today";
+    if (diffDays === 1) return "Yesterday";
+    return `${diffDays} days ago`;
+  };
+
   return (
     <div className="flex gap-4">
       <SideBar />
@@ -89,7 +102,8 @@ const Dashboard = () => {
         {/* need to add this: dynamically add since last logged in and last uploaded */}
         <div>
           <p className="font-body text-dark">
-            Last logged in: {previousLogin || lastLogin || "Never"}
+            Last logged in:{" "}
+            {formatLoginDate(previousLogin) || formatLoginDate(lastLogin)}
           </p>
           <p className="font-body text-dark">
             You last uploaded a desk photo [X] days ago!
