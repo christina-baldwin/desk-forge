@@ -109,6 +109,8 @@ const Upload = () => {
 
   const handleGenerateSuggestions = async (deskId) => {
     setLoading(true);
+    setMessage("Generating suggestions, please wait...");
+
     const token = localStorage.getItem("token");
 
     try {
