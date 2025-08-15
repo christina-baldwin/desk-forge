@@ -99,7 +99,14 @@ const Upload = () => {
 
   const handleDrop = (e) => {
     e.preventDefault();
-    setFile(e.dataTransfer.files[0]);
+    const droppedFile = e.dataTransfer.files[0];
+
+    if (!droppedFile.type.startsWith("image/")) {
+      setMessage("Only image files are allowed!");
+      return;
+    }
+
+    setFile(droppedFile);
     setMessage("");
   };
 
