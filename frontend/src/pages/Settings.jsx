@@ -138,7 +138,7 @@ const Settings = () => {
       <SideBar />
       <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pb-10 pr-60 h-280 w-280 overflow-auto">
         <div className="flex-1 gap-4 p-4">
-          <h1 className="font-heading text-dark text-3xl font-bold mb-4">
+          <h1 className="font-heading text-dark text-4xl font-bold mb-4">
             Settings
           </h1>
           <h3 className="font-heading text-dark text-xl font-semibold">Name</h3>

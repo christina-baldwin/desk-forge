@@ -211,7 +211,7 @@ const Upload = () => {
     <div className="flex gap-4">
       <SideBar />
       <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pr-60 h-280 w-280 overflow-auto">
-        <h1 className="font-heading text-dark text-3xl font-bold">
+        <h1 className="font-heading text-dark text-4xl font-bold">
           Analyse Desk Setup
         </h1>
 
@@ -318,7 +318,7 @@ const Upload = () => {
         </div>
 
         <h2 className="font-heading text-dark text-xl font-bold">
-          Or use your latest desk photo
+          Or use the latest photo of your desk
         </h2>
 
         {uploadedUrl ? (
