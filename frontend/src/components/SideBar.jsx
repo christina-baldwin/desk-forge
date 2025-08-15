@@ -11,7 +11,7 @@ const SideBar = () => {
         </Link>
         <Link to="/upload">
           <li className="font-heading text-dark text-lg hover:underline">
-            Upload & Generate
+            Analyse
           </li>
         </Link>
         <Link to="/suggestions">
