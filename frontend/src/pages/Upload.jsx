@@ -252,17 +252,40 @@ const Upload = () => {
             popupVisible ? "block" : "hidden"
           }`}
         >
-          <div className="flex flex-col gap-6 bg-light rounded-lg p-20 max-w-lg border-accent border-4 shadow-[0_0_0_4px_black]">
+          <div className="flex flex-col gap-6 bg-light rounded-lg p-20 max-w-2xl border-accent border-4 shadow-[0_0_0_4px_black]">
             <h2 className="text-2xl font-heading text-dark font-bold">
               Tips & Requirements
             </h2>
             <ul className="flex flex-col gap-2 font-body list-disc pl-5 italic">
-              <li>Accepted formats: JPG, PNG, GIF</li>
-              <li>Max file size: 5MB</li>
-              <li>Ensure good lighting</li>
-              <li>Avoid cluttered backgrounds</li>
-              <li>Fit the whole desk in frame</li>
-              <li>Write a clear description of the problem</li>
+              <li>
+                You can upload a new desk photo OR you can use an existing desk
+                you have uploaded before, this is displayed below
+              </li>
+              <li>When taking a photo:</li>
+              <ul className="flex flex-col gap-2 font-body list-decimal pl-5 italic">
+                <li>Ensure good lighting</li>
+                <li>Avoid cluttered backgrounds</li>
+                <li>Fit the whole desk in frame</li>
+              </ul>
+              <li>When uploading:</li>
+              <ul className="flex flex-col gap-2 font-body list-decimal pl-5 italic">
+                <li>
+                  Make sure to only upload accepted image formats: JPG, PNG, GIF
+                </li>
+                <li>Stay within the max file size of 5MB</li>
+                <li>Write a clear description of the problem</li>
+              </ul>
+              <li>When generating from an existing desk:</li>
+              <ul className="flex flex-col gap-2 font-body list-decimal pl-5 italic">
+                <li>
+                  Once a desk has been uploaded it gets saved in the latest desk
+                  section
+                </li>
+                <li>
+                  You can then generate suggestions, regenerate suggestions, add
+                  new problems, or delete the desk
+                </li>
+              </ul>
             </ul>
             <button
               onClick={handlePopupVisibility}
