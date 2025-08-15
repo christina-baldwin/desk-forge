@@ -199,9 +199,12 @@ const Upload = () => {
       <SideBar />
       <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pr-60 h-280 w-280 overflow-auto">
         <h1 className="font-heading text-dark text-3xl font-bold">
-          Upload Photo & Generate Suggestions
+          Analyse Desk Setup
         </h1>
 
+        <h2 className="font-heading text-dark text-xl font-bold">
+          Upload a new photo of your desk
+        </h2>
         <input
           type="file"
           accept="image/*"
@@ -261,7 +264,7 @@ const Upload = () => {
           </div>
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex gap-6 mb-10">
           <button
             onClick={handleUpload}
             className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
@@ -277,7 +280,9 @@ const Upload = () => {
           </button>
         </div>
 
-        <h3 className="text-xl font-bold">Latest Photo</h3>
+        <h2 className="font-heading text-dark text-xl font-bold">
+          Or use your latest desk photo
+        </h2>
 
         {uploadedUrl ? (
           <div className="max-w-md mt-4 flex flex-col items-left gap-2">
