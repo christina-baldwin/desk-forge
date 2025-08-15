@@ -211,40 +211,11 @@ const Upload = () => {
           Analyse Desk Setup
         </h1>
 
-        <h2 className="font-heading text-dark text-xl font-bold">
-          Upload a new photo of your desk
-        </h2>
-        <input
-          type="file"
-          accept="image/*"
-          capture="environment"
-          style={{ display: "none" }}
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
-
-        <button
-          onClick={handleSelectClick}
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          className="px-4 py-2 bg-light text-dark text-lg rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] underline"
-        >
-          {file ? file.name : "Add a file or drag here"}
-        </button>
-
-        <input
-          type="text"
-          placeholder="Describe your key desk problems"
-          value={problems}
-          onChange={(e) => setProblems(e.target.value)}
-          className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
-        />
-
         <button
           onClick={handlePopupVisibility}
           className="text-left italic underline cursor-pointer mb-4"
         >
-          Click here for tips & requirements
+          Click here for help
         </button>
 
         <div
@@ -295,6 +266,35 @@ const Upload = () => {
             </button>
           </div>
         </div>
+
+        <h2 className="font-heading text-dark text-xl font-bold">
+          Upload a new photo of your desk
+        </h2>
+        <input
+          type="file"
+          accept="image/*"
+          capture="environment"
+          style={{ display: "none" }}
+          ref={fileInputRef}
+          onChange={handleFileChange}
+        />
+
+        <button
+          onClick={handleSelectClick}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          className="px-4 py-2 bg-light text-dark text-lg rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] underline"
+        >
+          {file ? file.name : "Add a file or drag here"}
+        </button>
+
+        <input
+          type="text"
+          placeholder="Describe your key desk problems"
+          value={problems}
+          onChange={(e) => setProblems(e.target.value)}
+          className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
+        />
 
         <div className="flex gap-6 mb-10">
           <button
