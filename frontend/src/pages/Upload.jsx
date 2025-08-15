@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
+import {
+  QuestionMarkCircleIcon,
+  LightBulbIcon,
+} from "@heroicons/react/24/outline";
 
 // change this once on render
 const apiUrl = "http://localhost:8080";
@@ -213,9 +217,10 @@ const Upload = () => {
 
         <button
           onClick={handlePopupVisibility}
-          className="text-left italic underline cursor-pointer mb-4"
+          className="flex items-center gap-2 text-left italic text-dark underline cursor-pointer mb-4"
         >
-          Click here for help
+          <LightBulbIcon className="h-5 w-5 text-dark" />
+          Need help? Click here
         </button>
 
         <div
