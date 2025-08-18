@@ -109,10 +109,10 @@ const Login = () => {
         >
           ← Back to Home
         </Link>
-        <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
+        <div className="h-6 mb-2 w-full ">
           {isLoading && (
             <p
-              className={`font-heading text-dark text-sm text-center italic transition-opacity duration-300 ${
+              className={`font-heading text-dark italic text-center bg-slate-100 border border-accent rounded-md transition-opacity duration-300 ${
                 isLoading ? "opacity-100" : "opacity-0"
               }`}
             >

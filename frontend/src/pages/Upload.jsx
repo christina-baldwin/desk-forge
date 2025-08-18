@@ -394,11 +394,17 @@ const Upload = () => {
           <p>No photos yet, upload a photo to get started!</p>
         )}
         {/* Might need a better way to display this later */}
-        {message && (
-          <p className="font-body text-dark uppercase mt-10 text-center bg-slate-100 border border-accent p-4 rounded-md">
-            {message}
-          </p>
-        )}
+        <div className="h-6 mb-2 w-full">
+          {message && (
+            <p
+              className={`font-heading text-dark italic text-center bg-slate-100 border border-accent rounded-md transition-opacity duration-300 ${
+                message ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {message}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
