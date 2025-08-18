@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SideBar from "../components/SideBar";
 
-const apiUrl = "http://localhost:8080";
+const apiUrl = "https://desk-forge.onrender.com";
 
 const Settings = () => {
   const [userName, setUserName] = useState("");

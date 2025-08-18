@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 
 import SideBar from "../components/SideBar";
 
-// change this once on render
-const apiUrl = "http://localhost:8080";
+const apiUrl = "https://desk-forge.onrender.com";
 
 const Dashboard = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");

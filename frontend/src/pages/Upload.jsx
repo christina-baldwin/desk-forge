@@ -6,8 +6,7 @@ import {
   LightBulbIcon,
 } from "@heroicons/react/24/outline";
 
-// change this once on render
-const apiUrl = "http://localhost:8080";
+const apiUrl = "https://desk-forge.onrender.com";
 
 const Upload = () => {
   const [file, setFile] = useState(null);

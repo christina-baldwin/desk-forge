@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-// change this once on render
-const apiUrl = "http://localhost:8080";
+const apiUrl = "https://desk-forge.onrender.com";
 
 const Login = () => {
   const [email, setEmail] = useState("");

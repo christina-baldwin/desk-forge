@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const apiUrl = "http://localhost:8080";
+const apiUrl = "https://desk-forge.onrender.com";
 
 const Nav = () => {
   const [userName, setUserName] = useState("");

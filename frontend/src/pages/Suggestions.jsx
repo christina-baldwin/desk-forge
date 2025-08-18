@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import SideBar from "../components/SideBar";
 
-// change this once on render
-const apiUrl = "http://localhost:8080";
+const apiUrl = "https://desk-forge.onrender.com";
 
 const Suggestions = () => {
   const [latestDesk, setLatestDesk] = useState(null);

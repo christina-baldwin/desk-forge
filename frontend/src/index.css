@@ -10,3 +10,10 @@
   --font-body: "Inter", sans-serif;
   --font-heading: "Share Tech Mono", monospace;
 }
+/* 
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background-color: red;
+  left: 10%;
+  bottom: 15%; */

@@ -30,7 +30,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
           content: [
             {
               type: "text",
-              text: "Use the uploaded image and the below desk problems, if available, to give 5 suggestions to improve my hobby desk setup, specifically for warhammer 40k. Reference specific products if applicable. Reference specific points on the desk where your suggested items could be placed or used. Reference things on the desk that are not useful and can be removed. Return them as a JSON array of objects, each with a 'title' and a 'description'. No markdown formatting, no asterisks.",
+              text: "Use the uploaded image and the below desk problems, if available, to give 5 suggestions to improve my hobby desk setup, specifically for warhammer 40k. Reference specific products if applicable. Reference specific points on the desk where your suggested items would be placed. For each suggestion, provide coordinates using x and y to visually represent where that specific suggestion should be placed assuming x will always be a maximum value of 440px and y being 267px. Reference things on the desk that are not useful and can be removed. Return them as a JSON array of objects, each with a 'title', 'description', 'x' and 'y'. No markdown formatting, no asterisks.",
             },
             {
               type: "text",
@@ -45,7 +45,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
 
     const aiMessage = response.choices[0]?.message?.content || "";
 
-    console.info(aiMessage);
+    console.info("aiMessage: ", aiMessage);
 
     desk.suggestions = JSON.parse(aiMessage);
 
