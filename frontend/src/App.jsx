@@ -8,6 +8,7 @@ import Upload from "./pages/Upload";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import Settings from "./pages/Settings";
+import PrivateRoute from "./components/PrivateRoute";
 
 export const App = () => {
   return (
@@ -18,7 +19,14 @@ export const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<NotFound />} />
-          <Route element={<Layout />}>
+
+          <Route
+            element={
+              <PrivateRoute>
+                <Layout />
+              </PrivateRoute>
+            }
+          >
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/suggestions" element={<Suggestions />} />
             <Route path="/upload" element={<Upload />} />
