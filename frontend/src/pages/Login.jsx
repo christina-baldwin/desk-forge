@@ -91,7 +91,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+            className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
           >
             LOGIN
           </button>
@@ -99,17 +99,20 @@ const Login = () => {
 
         <p className="font-body text-dark mt-4 text-lg italic">
           Don’t have an account?{" "}
-          <Link to="/register" className="underline">
+          <Link
+            to="/register"
+            className="underline focus:outline-none focus:ring-2 focus:ring-accent"
+          >
             Register here
           </Link>
         </p>
         <Link
           to="/"
-          className="mt-4 text-lg font-heading text-dark font-bold hover:underline duration:200 transition-all"
+          className="mt-4 text-lg font-heading text-dark font-bold hover:underline duration:200 transition-all focus:outline-none focus:ring-2 focus:ring-accent"
         >
           ← Back to Home
         </Link>
-        <div className="h-6 mb-2 w-full ">
+        <div className="h-6 mb-2 w-max-xs">
           {isLoading && (
             <p
               className={`font-heading text-dark italic text-center bg-slate-100 border border-accent rounded-md transition-opacity duration-300 ${

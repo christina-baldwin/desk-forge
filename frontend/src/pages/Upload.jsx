@@ -216,9 +216,9 @@ const Upload = () => {
 
         <button
           onClick={handlePopupVisibility}
-          className="flex items-center gap-2 text-left italic text-dark underline cursor-pointer mb-4"
+          className="flex items-center gap-2 text-left italic text-dark underline cursor-pointer mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
         >
-          <LightBulbIcon className="h-5 w-5 text-dark" />
+          <LightBulbIcon className="h-5 w-5 text-dark focus:outline-none focus:ring-2 focus:ring-accent" />
           Need help? Click here
         </button>
 
@@ -264,14 +264,14 @@ const Upload = () => {
             </ul>
             <button
               onClick={handlePopupVisibility}
-              className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+              className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
             >
               Close
             </button>
           </div>
         </div>
 
-        <h2 className="font-heading text-dark text-xl font-bold">
+        <h2 className="font-heading text-dark text-xl font-bold focus:outline-none focus:ring-2 focus:ring-accent">
           Upload a new photo of your desk
         </h2>
         <input
@@ -287,7 +287,7 @@ const Upload = () => {
           onClick={handleSelectClick}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
-          className="px-4 py-2 bg-light text-dark text-lg rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] underline"
+          className="px-4 py-2 bg-light text-dark text-lg rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] underline focus:outline-none focus:ring-2 focus:ring-accent"
         >
           {file ? file.name : "Add a file or drag here"}
         </button>
@@ -303,14 +303,14 @@ const Upload = () => {
         <div className="flex gap-6 mb-10">
           <button
             onClick={handleUpload}
-            className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+            className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
           >
             Upload
           </button>
 
           <button
             onClick={handleCancel}
-            className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+            className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
           >
             Cancel
           </button>
@@ -344,13 +344,13 @@ const Upload = () => {
                 <div className="flex gap-4 mb-4">
                   <button
                     onClick={handleProblemsSave}
-                    className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                    className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     Save
                   </button>
                   <button
                     onClick={() => setIsEditingProblems(false)}
-                    className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                    className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     Cancel
                   </button>
@@ -365,7 +365,7 @@ const Upload = () => {
                 </p>
                 <button
                   onClick={() => setIsEditingProblems(true)}
-                  className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                  className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
                 >
                   Edit
                 </button>
@@ -376,7 +376,7 @@ const Upload = () => {
               <button
                 onClick={() => handleGenerateSuggestions(desk._id)}
                 disabled={loading}
-                className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 {desk.suggestions && desk.suggestions.length > 0
                   ? "Regenerate Suggestions"
@@ -384,7 +384,7 @@ const Upload = () => {
               </button>
               <button
                 onClick={() => handleDelete(desk._id)}
-                className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+                className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
               >
                 Delete
               </button>

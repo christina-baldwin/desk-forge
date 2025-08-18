@@ -137,7 +137,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200"
+            className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
           >
             REGISTER
           </button>
@@ -145,13 +145,16 @@ const Register = () => {
 
         <p className="font-body text-dark mt-4 text-lg italic">
           Already have an account?{" "}
-          <Link to="/login" className="underline">
+          <Link
+            to="/login"
+            className="underline focus:outline-none focus:ring-2 focus:ring-accent"
+          >
             Log in
           </Link>
         </p>
         <Link
           to="/"
-          className="mt-4 text-lg font-heading text-dark font-bold hover:underline duration:200 transition-all"
+          className="mt-4 text-lg font-heading text-dark font-bold hover:underline duration:200 transition-all focus:outline-none focus:ring-2 focus:ring-accent"
         >
           ← Back to Home
         </Link>
