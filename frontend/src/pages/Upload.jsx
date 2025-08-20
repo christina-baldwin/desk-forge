@@ -273,6 +273,7 @@ const Upload = () => {
             </button>
           </div>
         </div>
+
         <h2 className="font-heading text-dark text-xl font-bold focus:outline-none focus:ring-2 focus:ring-accent">
           Upload a new photo of your desk
         </h2>

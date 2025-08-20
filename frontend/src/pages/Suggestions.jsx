@@ -39,29 +39,34 @@ const Suggestions = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4">
+    <div className="flex flex-col md:flex-row gap-4 p-4 md:p-8">
       <SideBar />
-      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pb-10 pr-60 h-280 w-280 overflow-auto">
-        <h1 className="font-heading text-dark text-4xl font-bold">
+
+      <div
+        className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-8 
+                  p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[900px] 
+                  mx-auto md:mx-0 overflow-auto"
+      >
+        <h1 className="font-heading text-dark text-3xl sm:text-4xl md:text-4xl font-bold text-center md:text-left">
           Suggestions
         </h1>
 
-        <div>
-          <h2 className="font-heading text-dark text-xl font-semibold">
+        <div className="flex flex-col items-center md:items-start gap-4">
+          <h2 className="text-2xl font-heading text-dark font-bold">
             Latest suggestions:
           </h2>
           {latestDesk &&
           latestDesk.suggestions &&
           latestDesk.suggestions.length > 0 ? (
             <div className="mt-4">
-              <div className="mt-4 flex flex-col items-left gap-2">
+              <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
                 <img
                   src={latestDesk.imageUrl}
                   alt="Uploaded preview"
-                  className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
+                  className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
                 />
               </div>
-              <ul className="font-body list-disc list-inside flex flex-col gap-3">
+              <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
                 {latestDesk.suggestions.map((suggestion, index) => (
                   <li key={index}>
                     <strong>{suggestion.title}</strong>:{" "}
@@ -88,7 +93,9 @@ const Suggestions = () => {
         </button>
 
         <div
-          className={`mt-10 ${visibleOlderSuggestions ? "block" : "hidden"}`}
+          className={`flex flex-col items-center md:items-start gap-4 mt-10 ${
+            visibleOlderSuggestions ? "block" : "hidden"
+          }`}
         >
           <h2 className="font-heading text-dark text-xl font-semibold">
             Previous suggestions:
@@ -97,14 +104,14 @@ const Suggestions = () => {
           prevDesk.suggestions &&
           prevDesk.suggestions.length > 0 ? (
             <div className="mt-4">
-              <div className="mt-4 flex flex-col items-left gap-2">
+              <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
                 <img
                   src={prevDesk.imageUrl}
                   alt="Uploaded preview"
                   className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
                 />
               </div>
-              <ul className="font-body list-disc list-inside flex flex-col gap-3">
+              <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
                 {prevDesk.suggestions.map((suggestion, index) => (
                   <li key={index}>
                     <strong>{suggestion.title}</strong>:{" "}
@@ -121,7 +128,6 @@ const Suggestions = () => {
           )}
         </div>
         {/* Might need a better way to display this later */}
-
         {message && <p className="mt-2 text-center">{message}</p>}
       </div>
     </div>
