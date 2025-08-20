@@ -64,14 +64,17 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-15">
-      <h1 className="font-logo text-light text-4xl drop-shadow-[3px_3px_0_#000000]">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-6 sm:gap-8 md:gap-10 lg:gap-12 p-4 sm:p-6 md:p-8 lg:p-12 bg-primary">
+      <h1 className="font-logo text-light text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-4xl drop-shadow-[3px_3px_0_#000000] my-4 sm:my-0 text-center">
         DeskForge
       </h1>
-      <div className="flex flex-col items-center justify-center gap-8 bg-light border-10 rounded-lg shadow-lg w-200 h-220">
-        <form onSubmit={handleRegister}>
-          <h2 className="font-heading text-dark text-5xl">Register</h2>
-          <div className="h-6 mb-2 w-full max-w-xs overflow-hidden">
+
+      <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 bg-light border-4 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-8 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+        <h2 className="font-heading text-dark text-3xl sm:text-4xl md:text-5xl lg:text-5xl">
+          Register
+        </h2>
+        <form onSubmit={handleRegister} className="w-full flex flex-col gap-4">
+          <div className="h-6">
             <p
               className={`text-sm text-red-600 transition-opacity duration-300 ${
                 error ? "opacity-100" : "opacity-0"
@@ -80,8 +83,12 @@ const Register = () => {
               {error || "placeholder"}
             </p>
           </div>
+
           <div className="flex flex-col gap-2 mb-4">
-            <label className="font-heading text-dark" htmlFor="name">
+            <label
+              className="font-heading text-sm sm:text-base md:text-lg"
+              htmlFor="name"
+            >
               Full name
             </label>
             <input
@@ -90,11 +97,14 @@ const Register = () => {
               placeholder="yourfullname"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
+              className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
-            <label className="font-heading text-dark" htmlFor="email">
+            <label
+              className="font-heading text-sm sm:text-base md:text-lg"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -103,11 +113,14 @@ const Register = () => {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
+              className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
-            <label className="font-heading text-dark" htmlFor="password">
+            <label
+              className="font-heading text-sm sm:text-base md:text-lg"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
@@ -116,12 +129,12 @@ const Register = () => {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
+              className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
             <label
-              className="font-heading text-dark"
+              className="font-heading text-sm sm:text-base md:text-lg"
               htmlFor="confirm-password"
             >
               Confirm password
@@ -132,12 +145,12 @@ const Register = () => {
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="font-body text-dark px-2 py-1 border-1 rounded-[5px] focus:outline-none focus:ring-2 focus:ring-accent"
+              className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
             />
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-accent text-dark text-lg rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
+            className="px-4 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3 lg:px-6 lg:py-4 bg-accent text-dark text-lg sm:text-lg md:text-xl lg:text-xl rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent w-full"
           >
             REGISTER
           </button>
