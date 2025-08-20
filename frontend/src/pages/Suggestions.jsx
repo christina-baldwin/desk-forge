@@ -39,7 +39,7 @@ const Suggestions = () => {
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-col md:flex-row gap-4">
       <SideBar />
       <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pb-10 pr-60 h-280 w-280 overflow-auto">
         <h1 className="font-heading text-dark text-4xl font-bold">
