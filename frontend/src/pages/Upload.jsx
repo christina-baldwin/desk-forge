@@ -207,13 +207,17 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4">
+    <div className="flex flex-col md:flex-row gap-4 p-4 md:p-8">
       <SideBar />
-      <div className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-6 pl-10 pt-10 pr-60 h-280 w-280 overflow-auto">
-        <h1 className="font-heading text-dark text-4xl font-bold">
+
+      <div
+        className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-8 
+                  p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[900px] 
+                  mx-auto md:mx-0 overflow-auto"
+      >
+        <h1 className="font-heading text-dark text-3xl sm:text-4xl md:text-4xl font-bold text-center md:text-left">
           Analyse Desk Setup
         </h1>
-
         <button
           onClick={handlePopupVisibility}
           className="flex items-center gap-2 text-left italic text-dark underline cursor-pointer mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
@@ -221,7 +225,6 @@ const Upload = () => {
           <LightBulbIcon className="h-5 w-5 text-dark focus:outline-none focus:ring-2 focus:ring-accent" />
           Need help? Click here
         </button>
-
         <div
           className={`fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-50 ${
             popupVisible ? "block" : "hidden"
@@ -270,7 +273,6 @@ const Upload = () => {
             </button>
           </div>
         </div>
-
         <h2 className="font-heading text-dark text-xl font-bold focus:outline-none focus:ring-2 focus:ring-accent">
           Upload a new photo of your desk
         </h2>
@@ -282,7 +284,6 @@ const Upload = () => {
           ref={fileInputRef}
           onChange={handleFileChange}
         />
-
         <button
           onClick={handleSelectClick}
           onDrop={handleDrop}
@@ -291,7 +292,6 @@ const Upload = () => {
         >
           {file ? file.name : "Add a file or drag here"}
         </button>
-
         <input
           type="text"
           placeholder="Describe your key desk problems"
@@ -299,7 +299,6 @@ const Upload = () => {
           onChange={(e) => setProblems(e.target.value)}
           className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
         />
-
         <div className="flex gap-6 mb-10">
           <button
             onClick={handleUpload}
@@ -315,17 +314,15 @@ const Upload = () => {
             Cancel
           </button>
         </div>
-
         <h2 className="font-heading text-dark text-xl font-bold">
           Or use the latest photo of your desk
         </h2>
-
         {uploadedUrl ? (
           <div className="max-w-md mt-4 flex flex-col items-left gap-2">
             <img
               src={uploadedUrl}
               alt="Uploaded preview"
-              className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
+              className="max-w-full h-auto border-accent border-4 shadow-[0_0_0_4px_black] rounded-lg mb-4"
             />
 
             {isEditingProblems ? (
