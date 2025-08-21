@@ -200,9 +200,9 @@ const Upload = () => {
 
       setDesk((prev) => ({ ...prev, problems: newProblems }));
       setIsEditingProblems(false);
-      setError("");
+      setMessage("");
     } catch (error) {
-      setError(error.message);
+      setMessage(error.message);
     }
   };
 
@@ -341,7 +341,7 @@ const Upload = () => {
                 </div>
                 <div className="flex gap-4 mb-4">
                   <button
-                    onClick={handleProblemsSave}
+                    onClick={() => handleProblemsSave(desk._id)}
                     className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     Save

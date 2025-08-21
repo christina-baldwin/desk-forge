@@ -96,7 +96,7 @@ const Dashboard = () => {
       <SideBar />
 
       <div
-        className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-8 
+        className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-10 
                   p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[900px] 
                   mx-auto md:mx-0 overflow-auto"
       >
@@ -118,11 +118,11 @@ const Dashboard = () => {
           <p className="font-body text-dark">{desk?.summary}</p>
         </div>
         <div>
-          <h2 className="font-heading text-center md:text-left text-dark text-xl font-bold mb-2">
+          <h2 className="font-heading text-center md:text-left text-dark text-xl font-bold mb-10">
             Latest Desk Setup
           </h2>
           {uploadedUrl ? (
-            <div className="mt-4 p-10 flex justify-center md:justify-start">
+            <div>
               <img
                 src={uploadedUrl}
                 alt="Uploaded preview"
