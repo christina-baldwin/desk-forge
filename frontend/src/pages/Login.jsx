@@ -54,7 +54,7 @@ const Login = () => {
         DeskForge
       </h1>
 
-      <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 bg-light border-4 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-8 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+      <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 bg-light border-4 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-8 pb-0 sm:p-8 sm:pb-0 md:p-12 md:pb-0 lg:p-16 lg:pb-0 xl:p-20 xl:pb-0">
         <h2 className="font-heading text-dark text-3xl sm:text-4xl md:text-5xl lg:text-5xl">
           Log in
         </h2>
@@ -127,11 +127,13 @@ const Login = () => {
           ← Back to Home
         </Link>
 
-        {isLoading && (
-          <p className="font-heading text-dark italic text-center bg-slate-100 border border-accent rounded-md mt-2 sm:mt-4 p-2 transition-opacity duration-300 opacity-100">
-            Logging in...
-          </p>
-        )}
+        <p
+          className={`font-heading text-dark italic text-center bg-slate-100 p-4 border border-accent rounded-md transition-opacity duration-300 ${
+            isLoading ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          Logging in...
+        </p>
       </div>
     </div>
   );
