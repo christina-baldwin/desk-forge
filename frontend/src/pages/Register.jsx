@@ -15,7 +15,11 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setError("");
+
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const trimmedConfirmPassword = confirmPassword.trim();
 
     if (!email || !password || !confirmPassword) {
       setError("All fields are required");
@@ -27,20 +31,43 @@ const Register = () => {
       return;
     }
 
-    if (!email.includes("@") || !email.includes(".")) {
-      setError("Please enter a valid email");
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!trimmedEmail) {
+      setError("Email is required.");
       return;
     }
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+    if (!emailRegex.test(trimmedEmail)) {
+      setError("Please enter a valid email address.");
       return;
     }
 
-    if (password !== confirmPassword) {
+    if (!trimmedPassword) {
+      setError("Password is required.");
+      return;
+    }
+
+    if (!trimmedConfirmPassword) {
+      setError("Confirm password is required.");
+      return;
+    }
+
+    if (trimmedPassword.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
+    if (trimmedConfirmPassword.length < 6) {
+      setError("Confirm password must be at least 6 characters long.");
+      return;
+    }
+
+    if (trimmedPassword !== trimmedConfirmPassword) {
       setError("Passwords do not match");
       return;
     }
+
+    setIsLoading(true);
 
     try {
       const response = await fetch(`${apiUrl}/auth/register`, {

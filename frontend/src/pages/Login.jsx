@@ -14,7 +14,6 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
 
     if (!email || !password) {
       setError("Email and password are required");
@@ -24,6 +23,8 @@ const Login = () => {
     if (!email.includes("@") || !email.includes(".")) {
       setError("Please enter a valid email");
     }
+
+    setIsLoading(true);
 
     try {
       const response = await fetch(`${apiUrl}/auth/login`, {
