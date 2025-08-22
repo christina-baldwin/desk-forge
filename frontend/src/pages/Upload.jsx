@@ -1,52 +1,23 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SideBar from "../components/SideBar";
-import {
-  QuestionMarkCircleIcon,
-  LightBulbIcon,
-} from "@heroicons/react/24/outline";
+import UploadDesk from "../components/UploadDesk";
+import { useDeskStore } from "../state/deskStore";
+import { LightBulbIcon } from "@heroicons/react/24/outline";
 
 const apiUrl = "https://desk-forge.onrender.com";
 
 const Upload = () => {
-  const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [desk, setDesk] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [problems, setProblems] = useState("");
   const [displayProblems, setDisplayProblems] = useState("");
   const [popupVisible, setPopupVisible] = useState(false);
   const [isEditingProblems, setIsEditingProblems] = useState(false);
   const [newProblems, setNewProblems] = useState("");
-  const fileInputRef = useRef();
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const fetchDesks = async () => {
-  //     const token = localStorage.getItem("token");
-  //     try {
-  //       const response = await fetch(`${apiUrl}/upload/desks`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       if (!response.ok) throw new Error("Failed to fetch desks");
-
-  //       const data = await response.json();
-
-  //       if (data.desks && data.desks.length > 0) {
-  //         setDesk(data.desks[0]);
-  //         setUploadedUrl(data.desks[0].imageUrl);
-  //       }
-  //     } catch (error) {
-  //       setMessage(error.message);
-  //     }
-  //   };
-
-  //   fetchDesks();
-  // }, []);
 
   const fetchLatestDesk = async () => {
     const token = localStorage.getItem("token");
@@ -75,108 +46,6 @@ const Upload = () => {
   useEffect(() => {
     fetchLatestDesk();
   }, []);
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
-
-    setFile(selectedFile);
-    setMessage("");
-
-    setDesk(null);
-    setUploadedUrl("");
-    setProblems("");
-    setIsEditingProblems(false);
-    setNewProblems("");
-  };
-
-  const handleSelectClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleUpload = async () => {
-    if (!file) {
-      setMessage("Please select a file to upload.");
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      setMessage("File size exceeds 5MB limit.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("problems", problems);
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch(`${apiUrl}/upload`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("File upload failed");
-      }
-
-      const data = await response.json();
-
-      setMessage("File uploaded successfully!");
-
-      setDesk({
-        _id: data._id,
-        imageUrl: data.url,
-        problems: data.problems || "",
-        suggestions: [],
-      });
-
-      setUploadedUrl(data.url);
-      setProblems("");
-      setDisplayProblems(data.problems || "");
-      setFile(null);
-      setIsEditingProblems(false);
-      setNewProblems("");
-      if (fileInputRef.current) fileInputRef.current.value = null;
-    } catch (error) {
-      setMessage(error.message);
-      setUploadedUrl("");
-    }
-  };
-
-  // cancel should only work if i have a file in my upload input, i think i need 2 states for everything, 1 for upload and 1 for display
-  const handleCancel = () => {
-    if (file) {
-      setFile(null);
-      setMessage("");
-      setProblems("");
-      setDesk(null);
-      setUploadedUrl("");
-      setIsEditingProblems(false);
-      setNewProblems("");
-      if (fileInputRef.current) fileInputRef.current.value = null;
-    }
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-
-    if (!droppedFile.type.startsWith("image/")) {
-      setMessage("Only image files are allowed!");
-      return;
-    }
-
-    setFile(droppedFile);
-    setMessage("");
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
 
   const handleGenerateSuggestions = async (deskId) => {
     setLoading(true);
@@ -267,6 +136,12 @@ const Upload = () => {
     }
   };
 
+  const setLatestDesk = useDeskStore((state) => state.setLatestDesk);
+
+  const handleUploadSuccess = (newDesk) => {
+    setLatestDesk(newDesk); // update Zustand store
+  };
+
   return (
     <div className="flex flex-col md:flex-row gap-4 p-4 md:p-8">
       <SideBar />
@@ -335,48 +210,7 @@ const Upload = () => {
           </div>
         </div>
 
-        {/* UPLOAD NEW DESK PHOTO SECTION */}
-        <h2 className="font-heading text-dark text-xl font-bold focus:outline-none focus:ring-2 focus:ring-accent">
-          Upload a new photo of your desk
-        </h2>
-        <input
-          type="file"
-          accept="image/*"
-          capture="environment"
-          style={{ display: "none" }}
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
-        <button
-          onClick={handleSelectClick}
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          className="px-4 py-2 bg-light text-dark text-lg rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] underline focus:outline-none focus:ring-2 focus:ring-accent"
-        >
-          {file ? file.name : "Add a file or drag here"}
-        </button>
-        <input
-          type="text"
-          placeholder="Describe your key desk problems"
-          value={problems}
-          onChange={(e) => setProblems(e.target.value)}
-          className="px-4 py-4 border-2 text-dark font-body rounded-[5px] mb-2 focus:outline-none focus:ring-2 focus:ring-accent"
-        />
-        <div className="flex gap-6 mb-10">
-          <button
-            onClick={handleUpload}
-            className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            Upload
-          </button>
-
-          <button
-            onClick={handleCancel}
-            className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
-          >
-            Cancel
-          </button>
-        </div>
+        <UploadDesk onUploadSuccess={handleUploadSuccess} />
 
         {/* DISPLAY LATEST DESK SECTION */}
         <h2 className="font-heading text-dark text-xl font-bold">

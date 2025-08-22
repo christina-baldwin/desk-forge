@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const UploadDesk = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);
   const [problems, setProblems] = useState("");
   const [message, setMessage] = useState("");
+  const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -11,11 +12,7 @@ const UploadDesk = ({ onUploadSuccess }) => {
 
     setFile(selectedFile);
     setMessage("");
-
-    setDesk(null);
-    setUploadedUrl("");
     setProblems("");
-    setIsEditingProblems(false);
   };
 
   const handleSelectClick = () => {
@@ -54,25 +51,13 @@ const UploadDesk = ({ onUploadSuccess }) => {
       const data = await response.json();
 
       setMessage("File uploaded successfully!");
-
-      setDesk({
-        _id: data._id,
-        imageUrl: data.url,
-        problems: data.problems || "",
-        suggestions: [],
-      });
-
-      setUploadedUrl(data.url);
       setProblems("");
-      setDisplayProblems(data.problems || "");
       setFile(null);
-      setIsEditingProblems(false);
       if (fileInputRef.current) fileInputRef.current.value = null;
 
       onUploadSuccess(data);
     } catch (error) {
       setMessage(error.message);
-      setUploadedUrl("");
     }
   };
 
@@ -81,10 +66,6 @@ const UploadDesk = ({ onUploadSuccess }) => {
       setFile(null);
       setMessage("");
       setProblems("");
-      setDesk(null);
-      setUploadedUrl("");
-      setIsEditingProblems(false);
-      setNewProblems("");
       if (fileInputRef.current) fileInputRef.current.value = null;
     }
   };
