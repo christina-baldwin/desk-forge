@@ -473,3 +473,13 @@ const Upload = () => {
 };
 
 export default Upload;
+
+// TO USE LATER ONCE COMPONENTS HAVE BEEN WORKED OUT
+//  const [latestDesk, setLatestDesk] = useState(null);
+
+//   return (
+//     <div className="flex flex-col gap-8">
+//       <UploadDesk onUploadSuccess={(desk) => setLatestDesk(desk)} />
+//       <LatestDesk desk={latestDesk} />
+//     </div>
+//   );
