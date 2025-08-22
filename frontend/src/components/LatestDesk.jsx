@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// also add it to the dashboard home page
 import { useDeskStore } from "../state/deskStore";
 
 const apiUrl = "https://desk-forge.onrender.com";
@@ -97,8 +96,6 @@ const LatestDesk = () => {
       if (!response.ok) {
         throw new Error("Failed to delete file");
       }
-
-      // const data = await response.json();
 
       await fetchLatestDesk();
     } catch (error) {
