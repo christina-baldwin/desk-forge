@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import SideBar from "../components/SideBar";
 import UploadDesk from "../components/UploadDesk";
 import LatestDesk from "../components/LatestDesk";
@@ -8,129 +7,7 @@ import { LightBulbIcon } from "@heroicons/react/24/outline";
 const apiUrl = "https://desk-forge.onrender.com";
 
 const Upload = () => {
-  const [message, setMessage] = useState("");
-  const [uploadedUrl, setUploadedUrl] = useState("");
-  const [desk, setDesk] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [displayProblems, setDisplayProblems] = useState("");
   const [popupVisible, setPopupVisible] = useState(false);
-  const [isEditingProblems, setIsEditingProblems] = useState(false);
-  const [newProblems, setNewProblems] = useState("");
-
-  const navigate = useNavigate();
-
-  const fetchLatestDesk = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch(`${apiUrl}/upload/desks`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) throw new Error("Failed to fetch desks");
-
-      const data = await response.json();
-
-      if (data.desks && data.desks.length > 0) {
-        setDesk(data.desks[0]);
-        setUploadedUrl(data.desks[0].imageUrl);
-      } else {
-        setDesk(null);
-        setUploadedUrl("");
-      }
-    } catch (error) {
-      setMessage(error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchLatestDesk();
-  }, []);
-
-  const handleGenerateSuggestions = async (deskId) => {
-    setLoading(true);
-    setMessage("Generating suggestions, please wait...");
-
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch(`${apiUrl}/ai/desks/${deskId}/generate`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to generate suggestions");
-      }
-
-      const data = await response.json();
-
-      setDesk((prev) => ({ ...prev, suggestions: data.suggestions }));
-      setMessage("Suggestions generated successfully!");
-      navigate("/suggestions");
-    } catch (error) {
-      setMessage(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDelete = async (deskId) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this desk?"
-    );
-
-    if (!confirmDelete) return;
-
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch(`${apiUrl}/upload/desks/${deskId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete file");
-      }
-
-      setMessage("File deleted successfully!");
-      setUploadedUrl("");
-    } catch (error) {
-      setMessage(error.message);
-    }
-  };
-
-  const handleProblemsSave = async (deskId) => {
-    const token = localStorage.getItem("token");
-
-    try {
-      const response = await fetch(`${apiUrl}/upload/desks/${deskId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ problems: newProblems }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to update desk problems");
-      }
-
-      setDesk((prev) => ({ ...prev, problems: newProblems }));
-      setIsEditingProblems(false);
-      setMessage("");
-    } catch (error) {
-      setMessage(error.message);
-    }
-  };
 
   const handlePopupVisibility = () => {
     setPopupVisible(!popupVisible);
@@ -205,6 +82,7 @@ const Upload = () => {
         </div>
 
         <UploadDesk />
+
         <LatestDesk />
       </div>
     </div>
@@ -212,13 +90,3 @@ const Upload = () => {
 };
 
 export default Upload;
-
-// TO USE LATER ONCE COMPONENTS HAVE BEEN WORKED OUT
-//  const [latestDesk, setLatestDesk] = useState(null);
-
-//   return (
-//     <div className="flex flex-col gap-8">
-//       <UploadDesk onUploadSuccess={(desk) => setLatestDesk(desk)} />
-//       <LatestDesk desk={latestDesk} />
-//     </div>
-//   );
