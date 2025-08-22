@@ -50,6 +50,7 @@ router.post("/", authenticate, upload.single("image"), async (req, res) => {
       id: result.public_id,
       desk: {
         _id: newDesk._id,
+        problems: newDesk.problems,
         suggestions: newDesk.suggestions,
       },
     });
