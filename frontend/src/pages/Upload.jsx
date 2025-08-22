@@ -15,6 +15,7 @@ const Upload = () => {
   const [desk, setDesk] = useState(null);
   const [loading, setLoading] = useState(false);
   const [problems, setProblems] = useState("");
+  const [displayProblems, setDisplayProblems] = useState("");
   const [popupVisible, setPopupVisible] = useState(false);
   const [isEditingProblems, setIsEditingProblems] = useState(false);
   const [newProblems, setNewProblems] = useState("");
@@ -22,34 +23,71 @@ const Upload = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDesks = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const response = await fetch(`${apiUrl}/upload/desks`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) throw new Error("Failed to fetch desks");
+  // useEffect(() => {
+  //   const fetchDesks = async () => {
+  //     const token = localStorage.getItem("token");
+  //     try {
+  //       const response = await fetch(`${apiUrl}/upload/desks`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       if (!response.ok) throw new Error("Failed to fetch desks");
 
-        const data = await response.json();
+  //       const data = await response.json();
 
-        if (data.desks && data.desks.length > 0) {
-          setDesk(data.desks[0]);
-          setUploadedUrl(data.desks[0].imageUrl);
-        }
-      } catch (error) {
-        setMessage(error.message);
+  //       if (data.desks && data.desks.length > 0) {
+  //         setDesk(data.desks[0]);
+  //         setUploadedUrl(data.desks[0].imageUrl);
+  //       }
+  //     } catch (error) {
+  //       setMessage(error.message);
+  //     }
+  //   };
+
+  //   fetchDesks();
+  // }, []);
+
+  const fetchLatestDesk = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${apiUrl}/upload/desks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to fetch desks");
+
+      const data = await response.json();
+
+      if (data.desks && data.desks.length > 0) {
+        setDesk(data.desks[0]);
+        setUploadedUrl(data.desks[0].imageUrl);
+      } else {
+        setDesk(null);
+        setUploadedUrl("");
       }
-    };
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
 
-    fetchDesks();
+  useEffect(() => {
+    fetchLatestDesk();
   }, []);
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    setFile(selectedFile);
     setMessage("");
+
+    setDesk(null);
+    setUploadedUrl("");
+    setProblems("");
+    setIsEditingProblems(false);
+    setNewProblems("");
   };
 
   const handleSelectClick = () => {
@@ -88,16 +126,39 @@ const Upload = () => {
       const data = await response.json();
 
       setMessage("File uploaded successfully!");
+
+      setDesk({
+        _id: data._id,
+        imageUrl: data.url,
+        problems: data.problems || "",
+        suggestions: [],
+      });
+
       setUploadedUrl(data.url);
+      setProblems("");
+      setDisplayProblems(data.problems || "");
+      setFile(null);
+      setIsEditingProblems(false);
+      setNewProblems("");
+      if (fileInputRef.current) fileInputRef.current.value = null;
     } catch (error) {
       setMessage(error.message);
       setUploadedUrl("");
     }
   };
 
+  // cancel should only work if i have a file in my upload input, i think i need 2 states for everything, 1 for upload and 1 for display
   const handleCancel = () => {
-    setFile(null);
-    setMessage("");
+    if (file) {
+      setFile(null);
+      setMessage("");
+      setProblems("");
+      setDesk(null);
+      setUploadedUrl("");
+      setIsEditingProblems(false);
+      setNewProblems("");
+      if (fileInputRef.current) fileInputRef.current.value = null;
+    }
   };
 
   const handleDrop = (e) => {
@@ -274,6 +335,7 @@ const Upload = () => {
           </div>
         </div>
 
+        {/* UPLOAD NEW DESK PHOTO SECTION */}
         <h2 className="font-heading text-dark text-xl font-bold focus:outline-none focus:ring-2 focus:ring-accent">
           Upload a new photo of your desk
         </h2>
@@ -315,6 +377,8 @@ const Upload = () => {
             Cancel
           </button>
         </div>
+
+        {/* DISPLAY LATEST DESK SECTION */}
         <h2 className="font-heading text-dark text-xl font-bold">
           Or use the latest photo of your desk
         </h2>
@@ -355,10 +419,10 @@ const Upload = () => {
                 </div>
               </>
             ) : (
-              <div className="flex gap-4 items-center mb-4 px-4 py-4 border-2 text-dark font-body rounded-[5px]">
+              <div className="flex gap-4 justify-between mb-4 px-4 py-4 border-2 text-dark font-body rounded-[5px]">
                 <p className="font-body text-dark italic">
-                  {desk.problems && desk.problems.length > 0
-                    ? `Existing problems: ${desk.problems}`
+                  {displayProblems && displayProblems.length > 0
+                    ? `Existing problems: ${displayProblems}`
                     : "No existing problems"}
                 </p>
                 <button
