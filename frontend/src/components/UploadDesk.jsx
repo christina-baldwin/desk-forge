@@ -1,10 +1,40 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useDeskStore } from "../state/deskStore";
 
-const UploadDesk = ({ onUploadSuccess }) => {
+const apiUrl = "https://desk-forge.onrender.com";
+
+const UploadDesk = () => {
+  const setLatestDesk = useDeskStore((state) => state.setLatestDesk);
   const [file, setFile] = useState(null);
   const [problems, setProblems] = useState("");
   const [message, setMessage] = useState("");
   const fileInputRef = useRef(null);
+
+  const fetchLatestDesk = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${apiUrl}/upload/desks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to fetch desks");
+
+      const data = await response.json();
+
+      if (data.desks && data.desks.length > 0) {
+        setLatestDesk(data.desks[0]);
+      } else {
+        setLatestDesk(null);
+      }
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchLatestDesk();
+  }, []);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -48,14 +78,14 @@ const UploadDesk = ({ onUploadSuccess }) => {
         throw new Error("File upload failed");
       }
 
-      const data = await response.json();
+      await response.json();
 
       setMessage("File uploaded successfully!");
       setProblems("");
       setFile(null);
       if (fileInputRef.current) fileInputRef.current.value = null;
 
-      onUploadSuccess(data);
+      fetchLatestDesk();
     } catch (error) {
       setMessage(error.message);
     }
