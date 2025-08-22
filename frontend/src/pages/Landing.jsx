@@ -39,13 +39,12 @@ const Landing = () => {
           miniatures? Do you wish your hobby desk worked better for you?
           DeskForge can help with that! Providing you with AI-powered feedback
           to help you optimise your hobby space! All you have to do is upload a
-          photo of your current desk space and we give you tailored insights
-          designed to enhance your creative journey. Just make an account and
-          give it a go!
+          photo of your current desk space Just make an account and give it a
+          go!
         </p>
 
         <img
-          src="/hero-img-crop.png"
+          src="/hero-img-2.png"
           alt="Screenshot of app dashboard"
           className="w-full max-w-xs"
         />

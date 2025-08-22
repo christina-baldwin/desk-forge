@@ -63,7 +63,7 @@ const Suggestions = () => {
                 <img
                   src={latestDesk.imageUrl}
                   alt="Uploaded preview"
-                  className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
+                  className="max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-lg border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
                 />
               </div>
               <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
