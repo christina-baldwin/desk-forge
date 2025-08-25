@@ -138,8 +138,7 @@ const LatestDesk = () => {
   return (
     <div>
       <h2 className="font-heading text-dark text-xl font-bold">
-        {" "}
-        Or use the latest photo of your desk
+        Use the latest photo of your desk
       </h2>
       <div className="max-w-md mt-4 flex flex-col items-left gap-2">
         <img
