@@ -42,7 +42,7 @@ const Suggestions = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-4 md:p-8">
       <motion.div
-        className="flex flex-col md:flex-row gap-4 p-4 md:p-8"
+        className="flex flex-col md:flex-row gap-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -51,8 +51,8 @@ const Suggestions = () => {
 
         <div
           className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-10 
-                  p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[700px] xl:w-[900px]
-                  mx-auto overflow-auto"
+                  p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[700px] xl:w-[900px] 
+                  mx-auto h-[80vh] overflow-auto overflow-y-auto"
         >
           <h1 className="font-heading text-dark text-3xl sm:text-4xl md:text-4xl font-bold text-center md:text-left">
             Suggestions

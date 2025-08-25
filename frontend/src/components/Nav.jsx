@@ -42,7 +42,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <div className="flex flex-row justify-between items-center p-4 mb-4 ">
+    <div className="flex flex-row justify-between items-center p-4">
       <div className="flex flex-row items-center gap-8">
         <p className="font-logo text-light text-4xl drop-shadow-[3px_3px_0_#000000]">
           DF

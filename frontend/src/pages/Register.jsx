@@ -100,12 +100,12 @@ const Register = () => {
       </h1>
 
       <motion.div
-        className="flex flex-col md:flex-row gap-4 p-4 md:p-8"
+        className="flex flex-col md:flex-row gap-4 p-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 bg-light border-4 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-8 pb-0 sm:p-8 sm:pb-0 md:p-12 md:pb-0 lg:p-16 lg:pb-0 xl:p-20 xl:pb-0">
+        <div className="flex flex-col items-center gap-4 sm:gap-6 md:gap-8 bg-light border-4 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg p-8 pb-0 sm:p-8 sm:pb-0 md:p-12 md:pb-0 lg:p-16 lg:pb-0 xl:p-20 xl:pb-0 h-[80vh] overflow-auto overflow-y-auto">
           <h2 className="font-heading text-dark text-3xl sm:text-4xl md:text-5xl lg:text-5xl">
             Register
           </h2>

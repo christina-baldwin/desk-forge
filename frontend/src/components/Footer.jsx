@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="text-sm text-light font-body py-4 text-center border-t mt-8">
+    <footer className="text-xs text-light font-body py-3 text-center border-t">
       © {new Date().getFullYear()} DeskForge. All rights reserved.
     </footer>
   );
