@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDeskStore } from "../state/deskStore";
 
 import SideBar from "../components/SideBar";
 
 const apiUrl = "https://desk-forge.onrender.com";
 
 const Dashboard = () => {
-  const [uploadedUrl, setUploadedUrl] = useState("");
-  const [desk, setDesk] = useState(null);
+  const { latestDesk, setLatestDesk, clearDesk } = useDeskStore();
   const [lastLogin, setLastLogin] = useState("");
   const [previousLogin, setPreviousLogin] = useState("");
 
@@ -45,30 +45,31 @@ const Dashboard = () => {
     fetchUser();
   }, []);
 
-  useEffect(() => {
-    const fetchDesks = async () => {
-      const token = localStorage.getItem("token");
-      try {
-        const response = await fetch(`${apiUrl}/upload/desks`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) throw new Error("Failed to fetch desks");
+  const fetchLatestDesk = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`${apiUrl}/upload/desks`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error("Failed to fetch desks");
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (data.desks && data.desks.length > 0) {
-          setDesk(data.desks[0]);
-          setUploadedUrl(data.desks[0].imageUrl);
-        }
-      } catch (error) {
-        setMessage(error.message);
+      if (data.desks && data.desks.length > 0) {
+        setLatestDesk(data.desks[0]);
+      } else {
+        clearDesk();
       }
-    };
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-    fetchDesks();
-  }, []);
+  useEffect(() => {
+    fetchLatestDesk();
+  }, [setLatestDesk, clearDesk]);
 
   const formatDate = (dateString) => {
     if (!dateString) return "Never";
@@ -108,23 +109,27 @@ const Dashboard = () => {
             Last logged in: {formatDate(previousLogin) || formatDate(lastLogin)}
           </p>
           <p className="font-body text-dark">
-            You last uploaded a desk photo {formatDate(desk?.createdAt)}!
+            You last uploaded a desk photo {formatDate(latestDesk?.createdAt)}!
           </p>
         </div>
         <div className="mb-4 px-5 py-6 border-2 text-dark font-body rounded-[5px]">
           <h2 className="text-lg font-heading text-dark mb-2">
             Summary of Your Latest Desk Setup
           </h2>
-          <p className="font-body text-dark">{desk?.summary}</p>
+          <p className="font-body text-dark">
+            {latestDesk?.summary
+              ? latestDesk?.summary
+              : "No summary available."}
+          </p>
         </div>
         <div>
           <h2 className="font-heading text-center md:text-left text-dark text-xl font-bold mb-10">
             Latest Desk Setup
           </h2>
-          {uploadedUrl ? (
+          {latestDesk?.imageUrl ? (
             <div>
               <img
-                src={uploadedUrl}
+                src={latestDesk?.imageUrl}
                 alt="Uploaded preview"
                 className="max-w-2xs sm:max-w-xs max-h-64 border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
               />
