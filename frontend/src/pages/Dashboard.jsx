@@ -94,7 +94,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 p-4 md:p-8">
+    <div className="flex flex-col lg:flex-row gap-4 p-4 md:p-8">
       <motion.div
         className="flex flex-col md:flex-row gap-4 p-4 md:p-8"
         initial={{ opacity: 0, y: 20 }}
@@ -105,8 +105,8 @@ const Dashboard = () => {
 
         <div
           className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-10 
-                  p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[900px] 
-                  mx-auto md:mx-0 overflow-auto"
+                  p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[700px] xl:w-[900px]
+                  mx-auto overflow-auto"
         >
           <h1 className="font-heading text-dark text-3xl sm:text-4xl md:text-4xl font-bold text-center md:text-left">
             Welcome Back!
