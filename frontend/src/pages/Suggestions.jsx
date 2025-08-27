@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import SideBar from "../components/SideBar";
 import { useDeskStore } from "../state/deskStore";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const apiUrl = "https://desk-forge.onrender.com";
 
@@ -114,18 +115,34 @@ const Suggestions = () => {
                 </div>
 
                 {latestDesk.suggestions?.length > 0 ? (
-                  <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
-                    {latestDesk.suggestions.map((suggestion, index) => (
-                      <li key={index}>
-                        <strong>{suggestion.title}</strong>:{" "}
-                        {suggestion.description}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="flex flex-col gap-4">
+                    <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
+                      {latestDesk.suggestions.map((suggestion, index) => (
+                        <li key={index}>
+                          <strong>{suggestion.title}</strong>:{" "}
+                          {suggestion.description}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      to="/upload"
+                      className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
+                    >
+                      Regenerate Suggestions
+                    </Link>
+                  </div>
                 ) : (
-                  <p className="font-body text-dark">
-                    No suggestions available for this desk yet...
-                  </p>
+                  <div className="flex flex-col gap-4">
+                    <p className="font-body text-dark">
+                      No suggestions available for this desk yet...
+                    </p>
+                    <Link
+                      to="/upload"
+                      className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
+                    >
+                      Generate Suggestions
+                    </Link>
+                  </div>
                 )}
               </div>
             ) : (
@@ -135,7 +152,7 @@ const Suggestions = () => {
 
           <button
             onClick={handleViewOlderSuggestions}
-            className="px-4 py-2 bg-accent text-dark text-md rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
+            className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
           >
             {visibleOlderSuggestions
               ? "Hide older suggestions"
