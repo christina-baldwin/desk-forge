@@ -5,64 +5,111 @@ import { motion } from "framer-motion";
 const apiUrl = "https://desk-forge.onrender.com";
 
 const Register = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
-    setError("");
 
-    const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
-    const trimmedConfirmPassword = confirmPassword.trim();
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedPassword = formData.password.trim();
+    const trimmedConfirmPassword = formData.confirmPassword.trim();
 
-    if (!email || !password || !confirmPassword) {
-      setError("All fields are required");
-      return;
-    }
-
-    if (!name || name.length < 3) {
-      setError("Name must be at least 3 characters");
+    if (
+      !trimmedName ||
+      trimmedName.length < 3 ||
+      !trimmedEmail ||
+      !trimmedPassword ||
+      !trimmedConfirmPassword
+    ) {
+      setErrors(() => ({
+        name:
+          !trimmedName || trimmedName.length < 3
+            ? "Name must be at least 3 characters"
+            : "",
+        email: !trimmedEmail ? "Email is required" : "",
+        password: !trimmedPassword ? "Password is required" : "",
+        confirmPassword: !trimmedConfirmPassword
+          ? "Confirm Password is required"
+          : "",
+      }));
       return;
     }
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!trimmedEmail) {
-      setError("Email is required.");
+      setErrors((prev) => ({
+        ...prev,
+        email: "Email is required.",
+      }));
       return;
     }
 
     if (!emailRegex.test(trimmedEmail)) {
-      setError("Please enter a valid email address.");
+      setErrors((prev) => ({
+        ...prev,
+        email: "Please enter a valid email address.",
+      }));
       return;
     }
 
     if (!trimmedPassword) {
-      setError("Password is required.");
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password is required.",
+      }));
       return;
     }
 
     if (!trimmedConfirmPassword) {
-      setError("Confirm password is required.");
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Confirm Password is required.",
+      }));
       return;
     }
 
     if (trimmedPassword.length < 6) {
-      setError("Password must be at least 6 characters long.");
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password must be at least 6 characters long.",
+      }));
       return;
     }
 
     if (trimmedConfirmPassword.length < 6) {
-      setError("Confirm password must be at least 6 characters long.");
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Confirm password must be at least 6 characters long.",
+      }));
       return;
     }
 
     if (trimmedPassword !== trimmedConfirmPassword) {
-      setError("Passwords do not match");
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Passwords do not match",
+      }));
       return;
     }
 
@@ -72,7 +119,11 @@ const Register = () => {
       const response = await fetch(`${apiUrl}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
       });
 
       const data = await response.json();
@@ -82,9 +133,15 @@ const Register = () => {
       }
 
       alert("Registration successful!");
-      setName("");
-      setEmail("");
-      setPassword("");
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+
+      setErrors({});
       setError("");
     } catch (error) {
       setError(error.message);
@@ -109,10 +166,7 @@ const Register = () => {
           <h2 className="font-heading text-dark text-3xl sm:text-4xl md:text-5xl lg:text-5xl">
             Register
           </h2>
-          <form
-            onSubmit={handleRegister}
-            className="w-full flex flex-col gap-4"
-          >
+          <form onSubmit={handleRegister} className="w-full flex flex-col">
             <div className="h-6">
               <p
                 className={`text-sm text-red-600 transition-opacity duration-300 ${
@@ -123,7 +177,7 @@ const Register = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 mb-4">
+            <div className="flex flex-col gap-2">
               <label
                 className="font-heading text-sm sm:text-base md:text-lg"
                 htmlFor="name"
@@ -133,13 +187,20 @@ const Register = () => {
               <input
                 type="text"
                 id="name"
+                name="name"
                 placeholder="yourfullname"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={formData.name}
+                onChange={handleChange}
                 className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
               />
+              <p
+                className="text-red-600 text-sm mt-1 h-5"
+                style={{ visibility: errors.name ? "visible" : "hidden" }}
+              >
+                {errors.name || "placeholder"}
+              </p>
             </div>
-            <div className="flex flex-col gap-2 mb-4">
+            <div className="flex flex-col gap-2">
               <label
                 className="font-heading text-sm sm:text-base md:text-lg"
                 htmlFor="email"
@@ -149,13 +210,20 @@ const Register = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
                 className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
               />
+              <p
+                className="text-red-600 text-sm mt-1 h-5"
+                style={{ visibility: errors.email ? "visible" : "hidden" }}
+              >
+                {errors.email || "placeholder"}
+              </p>
             </div>
-            <div className="flex flex-col gap-2 mb-4">
+            <div className="flex flex-col gap-2">
               <label
                 className="font-heading text-sm sm:text-base md:text-lg"
                 htmlFor="password"
@@ -165,11 +233,18 @@ const Register = () => {
               <input
                 type="password"
                 id="password"
+                name="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleChange}
                 className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
               />
+              <p
+                className="text-red-600 text-sm mt-1 h-5"
+                style={{ visibility: errors.password ? "visible" : "hidden" }}
+              >
+                {errors.password || "placeholder"}
+              </p>
             </div>
             <div className="flex flex-col gap-2 mb-4">
               <label
@@ -181,11 +256,20 @@ const Register = () => {
               <input
                 type="password"
                 id="confirm-password"
+                name="confirmPassword"
                 placeholder="••••••••"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={formData.confirmPassword}
+                onChange={handleChange}
                 className="font-body px-2 py-1 sm:px-3 sm:py-2 border rounded focus:outline-none focus:ring-2 focus:ring-accent w-full"
               />
+              <p
+                className="text-red-600 text-sm mt-1 h-5"
+                style={{
+                  visibility: errors.confirmPassword ? "visible" : "hidden",
+                }}
+              >
+                {errors.confirmPassword || "placeholder"}
+              </p>
             </div>
             <button
               type="submit"
