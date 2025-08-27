@@ -10,6 +10,7 @@ const Suggestions = () => {
   const [olderDesks, setOlderDesks] = useState([]);
   const [message, setMessage] = useState("");
   const [visibleOlderSuggestions, setVisibleOlderSuggestions] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
     const fetchDesks = async () => {
@@ -49,6 +50,28 @@ const Suggestions = () => {
       day: "numeric",
     });
   };
+
+  const dateFilterOptions = Array.from(
+    new Set(
+      olderDesks.map((desk) => {
+        const date = new Date(desk.createdAt);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+          2,
+          "0"
+        )}`;
+      })
+    )
+  ).sort((a, b) => (a < b ? 1 : -1));
+
+  const filteredOlderDesks = selectedDate
+    ? olderDesks.filter((desk) => {
+        const date = new Date(desk.createdAt);
+        const deskDate = `${date.getFullYear()}-${String(
+          date.getMonth() + 1
+        ).padStart(2, "0")}`;
+        return deskDate === selectedDate;
+      })
+    : olderDesks;
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-4 md:p-8">
@@ -128,8 +151,29 @@ const Suggestions = () => {
               Older suggestions:
             </h2>
 
+            <div className="flex flex-col lg:flex-row gap-4 items-center">
+              <h4 className="font-body text-dark text-md font-semibold">
+                Filter by date:
+              </h4>
+              <select
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="font-body border px-2 py-1 rounded"
+              >
+                <option value="">All</option>
+                {dateFilterOptions.map((my) => (
+                  <option key={my} value={my}>
+                    {new Date(my + "-01").toLocaleString("default", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {olderDesks && olderDesks.length > 0 ? (
-              olderDesks.map((desk, deskIndex) => (
+              filteredOlderDesks.map((desk, deskIndex) => (
                 <div key={deskIndex} className="mt-4">
                   <h3 className="text-xl font-heading text-dark font-semibold">
                     Desk from:{" "}
