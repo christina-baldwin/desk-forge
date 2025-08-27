@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import SideBar from "../components/SideBar";
+import { useDeskStore } from "../state/deskStore";
 import { motion } from "framer-motion";
 
 const apiUrl = "https://desk-forge.onrender.com";
 
 const Suggestions = () => {
-  const [latestDesk, setLatestDesk] = useState(null);
-  const [prevDesk, setPrevDesk] = useState(null);
+  const { latestDesk, setLatestDesk, clearDesk } = useDeskStore();
+  const [olderDesks, setOlderDesks] = useState([]);
   const [message, setMessage] = useState("");
   const [visibleOlderSuggestions, setVisibleOlderSuggestions] = useState(false);
 
@@ -25,7 +26,9 @@ const Suggestions = () => {
 
         if (data.desks && data.desks.length > 0) {
           setLatestDesk(data.desks[0]);
-          setPrevDesk(data.desks[1] || null);
+          setOlderDesks(data.desks.slice(1));
+        } else {
+          clearDesk();
         }
       } catch (error) {
         setMessage(error.message);
@@ -33,7 +36,7 @@ const Suggestions = () => {
     };
 
     fetchDesks();
-  }, []);
+  }, [setLatestDesk, clearDesk]);
 
   const handleViewOlderSuggestions = () => {
     setVisibleOlderSuggestions(!visibleOlderSuggestions);
@@ -62,9 +65,8 @@ const Suggestions = () => {
             <h2 className="text-2xl font-heading text-dark font-bold">
               Latest suggestions:
             </h2>
-            {latestDesk &&
-            latestDesk.suggestions &&
-            latestDesk.suggestions.length > 0 ? (
+
+            {latestDesk ? (
               <div className="mt-4">
                 <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
                   <img
@@ -73,20 +75,24 @@ const Suggestions = () => {
                     className="max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-lg border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
                   />
                 </div>
-                <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
-                  {latestDesk.suggestions.map((suggestion, index) => (
-                    <li key={index}>
-                      <strong>{suggestion.title}</strong>:{" "}
-                      {suggestion.description}
-                    </li>
-                  ))}
-                </ul>
+
+                {latestDesk.suggestions?.length > 0 ? (
+                  <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
+                    {latestDesk.suggestions.map((suggestion, index) => (
+                      <li key={index}>
+                        <strong>{suggestion.title}</strong>:{" "}
+                        {suggestion.description}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="font-body text-dark">
+                    No suggestions available for this desk yet...
+                  </p>
+                )}
               </div>
             ) : (
-              <p>
-                No suggestions available, upload a photo and generate
-                suggestions to get started.
-              </p>
+              <p className="font-body text-dark">No desk uploaded yet...</p>
             )}
           </div>
 
@@ -105,28 +111,29 @@ const Suggestions = () => {
             }`}
           >
             <h2 className="font-heading text-dark text-xl font-semibold">
-              Previous suggestions:
+              Older suggestions:
             </h2>
-            {prevDesk &&
-            prevDesk.suggestions &&
-            prevDesk.suggestions.length > 0 ? (
-              <div className="mt-4">
-                <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
-                  <img
-                    src={prevDesk.imageUrl}
-                    alt="Uploaded preview"
-                    className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
-                  />
+
+            {olderDesks && olderDesks.length > 0 ? (
+              olderDesks.map((desk, deskIndex) => (
+                <div key={deskIndex} className="mt-4">
+                  <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
+                    <img
+                      src={desk.imageUrl}
+                      alt="Uploaded preview"
+                      className="max-w-md border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg mb-4"
+                    />
+                  </div>
+                  <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
+                    {desk.suggestions.map((suggestion, index) => (
+                      <li key={index}>
+                        <strong>{suggestion.title}</strong>:{" "}
+                        {suggestion.description}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
-                  {prevDesk.suggestions.map((suggestion, index) => (
-                    <li key={index}>
-                      <strong>{suggestion.title}</strong>:{" "}
-                      {suggestion.description}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              ))
             ) : (
               <p>
                 No other desks available, upload a new photo and generate
