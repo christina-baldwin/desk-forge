@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SideBar from "../components/SideBar";
 import UploadDesk from "../components/UploadDesk";
 import LatestDesk from "../components/LatestDesk";
@@ -9,8 +9,18 @@ const Upload = () => {
   const [popupVisible, setPopupVisible] = useState(false);
 
   const handlePopupVisibility = () => {
-    setPopupVisible(!popupVisible);
+    setPopupVisible((prev) => !prev);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setPopupVisible(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-4 md:p-8">
@@ -30,6 +40,7 @@ const Upload = () => {
           <h1 className="font-heading text-dark text-3xl sm:text-4xl md:text-4xl font-bold text-center md:text-left">
             Analyse Desk Setup
           </h1>
+
           <button
             onClick={handlePopupVisibility}
             className="flex items-center gap-2 text-left italic text-dark underline cursor-pointer mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
@@ -37,12 +48,21 @@ const Upload = () => {
             <LightBulbIcon className="h-5 w-5 text-dark focus:outline-none focus:ring-2 focus:ring-accent" />
             Need help? Click here
           </button>
+
           <div
             className={`fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.5)] z-50 ${
-              popupVisible ? "block" : "hidden"
+              popupVisible
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-0 pointer-events-none"
             }`}
+            onClick={() => setPopupVisible(false)}
           >
-            <div className="flex flex-col gap-6 bg-light rounded-lg p-20 max-w-2xl border-accent border-4 shadow-[0_0_0_4px_black]">
+            <div
+              className="flex flex-col gap-6 bg-light rounded-lg p-4 sm:p-6 md:p-10 lg:p-16 w-[90%] max-w-2xl max-h-[70vh] border-accent border-4 shadow-[0_0_0_4px_black] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+            >
               <h2 className="text-2xl font-heading text-dark font-bold">
                 Tips & Requirements
               </h2>
