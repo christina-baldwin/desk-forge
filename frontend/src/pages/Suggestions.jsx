@@ -42,6 +42,14 @@ const Suggestions = () => {
     setVisibleOlderSuggestions(!visibleOlderSuggestions);
   };
 
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-4 md:p-8">
       <motion.div
@@ -68,6 +76,12 @@ const Suggestions = () => {
 
             {latestDesk ? (
               <div className="mt-4">
+                <h3 className="text-xl font-heading text-dark font-semibold">
+                  Latest desk:{" "}
+                  <span className="text-base font-normal italic text-gray-600">
+                    {formatDate(latestDesk.createdAt)}
+                  </span>
+                </h3>
                 <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
                   <img
                     src={latestDesk.imageUrl}
@@ -117,6 +131,12 @@ const Suggestions = () => {
             {olderDesks && olderDesks.length > 0 ? (
               olderDesks.map((desk, deskIndex) => (
                 <div key={deskIndex} className="mt-4">
+                  <h3 className="text-xl font-heading text-dark font-semibold">
+                    Desk from:{" "}
+                    <span className="text-base font-normal italic text-gray-600">
+                      {formatDate(desk.createdAt)}
+                    </span>
+                  </h3>
                   <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
                     <img
                       src={desk.imageUrl}
