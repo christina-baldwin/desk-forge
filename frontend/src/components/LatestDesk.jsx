@@ -97,6 +97,8 @@ const LatestDesk = () => {
         throw new Error("Failed to delete file");
       }
 
+      setMessage("Desk deleted successfully!");
+
       await fetchLatestDesk();
     } catch (error) {
       setMessage(error.message);
