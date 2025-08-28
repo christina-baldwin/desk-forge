@@ -188,7 +188,7 @@ const LatestDesk = () => {
         </div>
       )}
 
-      <div className="flex gap-6">
+      <div className="flex gap-6 mb-6">
         <button
           onClick={handleGenerateSuggestions}
           disabled={loading}

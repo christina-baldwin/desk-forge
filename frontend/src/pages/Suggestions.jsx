@@ -228,8 +228,9 @@ const Suggestions = () => {
               </p>
             )}
           </div>
-          {/* Might need a better way to display this later */}
-          {message && <p className="mt-2 text-center">{message}</p>}
+          {message && (
+            <p className="mt-2 text-center font-body text-dark">{message}</p>
+          )}
         </div>
       </motion.div>
     </div>
