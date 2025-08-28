@@ -16,12 +16,14 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
   const deskId = req.params.id;
 
   try {
+    // fetch the desk
     const desk = await Desk.findOne({ _id: deskId, userId: req.user.id });
     if (!desk)
       return res
         .status(404)
         .json({ success: false, message: "Desk not found" });
 
+    // ask openai for suggestions
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -43,12 +45,15 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
       max_tokens: 500,
     });
 
+    // ai returns an object so extract ai output from api response
     const aiMessage = response.choices[0]?.message?.content || "";
 
     console.info("aiMessage: ", aiMessage);
 
+    // store ai suggestions
     desk.suggestions = JSON.parse(aiMessage);
 
+    // generate a short summary, similar to previous prompt
     const summaryPrompt = `Here are the desk problems ${
       desk.problems
     } and here are the ai-generated suggestions ${desk.suggestions
@@ -65,6 +70,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
 
     desk.summary = summaryResponse.choices[0]?.message?.content || "";
 
+    // save to database
     await desk.save();
 
     res.status(200).json({ success: true, suggestions: desk.suggestions });
