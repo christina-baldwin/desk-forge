@@ -8,6 +8,7 @@ const UploadDesk = () => {
   const [file, setFile] = useState(null);
   const [problems, setProblems] = useState("");
   const [message, setMessage] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
 
   const fetchLatestDesk = async () => {
@@ -66,6 +67,8 @@ const UploadDesk = () => {
     const token = localStorage.getItem("token");
 
     try {
+      setIsUploading(true);
+
       const response = await fetch(`${apiUrl}/upload`, {
         method: "POST",
         headers: {
@@ -88,6 +91,8 @@ const UploadDesk = () => {
       fetchLatestDesk();
     } catch (error) {
       setMessage(error.message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -148,9 +153,10 @@ const UploadDesk = () => {
       <div className="flex gap-6 mb-10">
         <button
           onClick={handleUpload}
+          disabled={isUploading}
           className="px-4 py-2 bg-light text-dark text-md rounded cursor-pointer font-heading border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent"
         >
-          Upload
+          {isUploading ? "Uploading..." : "Upload"}
         </button>
 
         <button
