@@ -206,12 +206,18 @@ const Suggestions = () => {
                     />
                   </div>
                   <ul className="font-body list-disc list-inside flex flex-col items-center md:items-start gap-3">
-                    {desk.suggestions.map((suggestion, index) => (
-                      <li key={index}>
-                        <strong>{suggestion.title}</strong>:{" "}
-                        {suggestion.description}
-                      </li>
-                    ))}
+                    {desk.suggestions?.length > 0 ? (
+                      desk.suggestions.map((suggestion, index) => (
+                        <li key={index}>
+                          <strong>{suggestion.title}</strong>:{" "}
+                          {suggestion.description}
+                        </li>
+                      ))
+                    ) : (
+                      <p className="font-body text-dark">
+                        No suggestions available for this desk.
+                      </p>
+                    )}
                   </ul>
                 </div>
               ))
