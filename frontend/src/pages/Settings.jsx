@@ -145,7 +145,7 @@ const Settings = () => {
         <SideBar />
 
         <div
-          className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-10 
+          className="bg-light border-6 rounded-lg shadow-lg flex flex-col gap-5 
                   p-4 sm:p-6 md:p-10 w-full md:w-[720px] lg:w-[700px] xl:w-[900px] 
                   mx-auto h-[80vh] overflow-auto overflow-y-auto"
         >
