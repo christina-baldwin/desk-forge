@@ -32,7 +32,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
         .json({ success: false, message: "User not found" });
 
     // limit AI calls per account
-    if ((user.totalAiCalls || 0) >= 1) {
+    if ((user.totalAiCalls || 0) >= 10) {
       return res.status(403).json({
         success: false,
         message:
