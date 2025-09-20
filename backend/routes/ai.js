@@ -1,5 +1,6 @@
 import express from "express";
 import Desk from "../models/Desk.js";
+import User from "../models/User.js";
 import authenticate from "../middlewares/auth.js";
 import OpenAI from "openai";
 import dotenv from "dotenv";
@@ -22,6 +23,22 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
       return res
         .status(404)
         .json({ success: false, message: "Desk not found" });
+
+    // fetch the user
+    const user = await User.findById(req.user.id);
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+
+    // limit AI calls per account
+    if ((user.totalAiCalls || 0) >= 1) {
+      return res.status(403).json({
+        success: false,
+        message:
+          "You’ve reached your AI call limit. Please contact me for more access.",
+      });
+    }
 
     // ask openai for suggestions
     const response = await openai.chat.completions.create({
@@ -69,6 +86,10 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
     });
 
     desk.summary = summaryResponse.choices[0]?.message?.content || "";
+
+    // increment ai calls
+    user.totalAiCalls = (user.totalAiCalls || 0) + 1;
+    await user.save();
 
     // save to database
     await desk.save();

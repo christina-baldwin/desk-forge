@@ -59,7 +59,8 @@ const LatestDesk = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to generate suggestions");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to generate suggestions");
       }
 
       const data = await response.json();

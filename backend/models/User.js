@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true, minlength: 6 },
     lastLogin: { type: Date, default: Date.now },
     previousLogin: { type: Date },
+    totalAiCalls: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
