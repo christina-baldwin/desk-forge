@@ -10,6 +10,7 @@ import authenticate from "../middlewares/auth.js";
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 const bcrypt = require("bcrypt");
+const MAX_USERS = 20;
 
 async function hashPassword(password) {
   const saltRounds = 10;
@@ -22,7 +23,17 @@ router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    const numberOfUsers = await User.countDocuments();
     const existingUser = await User.findOne({ email });
+
+    if (numberOfUsers >= MAX_USERS) {
+      return res.status(403).json({
+        success: false,
+        message:
+          "Maximum number of accounts has been reached. Contact us @ christina.baldwin13@yahoo.com",
+      });
+    }
+
     if (existingUser) {
       return res
         .status(400)
