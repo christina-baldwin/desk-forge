@@ -36,7 +36,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
       return res.status(403).json({
         success: false,
         message:
-          "You’ve reached your AI call limit. Please contact me for more access.",
+          "You’ve reached your AI call limit. Please contact us @ christina.baldwin13@yahoo.com",
       });
     }
 
