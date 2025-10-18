@@ -107,9 +107,19 @@ const Suggestions = () => {
                   </span>
                 </h3>
                 <div className="mt-4 mb-8 flex flex-col items-center md:items-start">
+                  {/* <img
+                    src={latestDesk.imageUrl}
+                    alt="Uploaded preview"
+                    className="max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-lg border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
+                  /> */}
                   <img
                     src={latestDesk.imageUrl}
                     alt="Uploaded preview"
+                    onError={() =>
+                      setMessage(
+                        "Preview failed. Try uploading a smaller JPG or PNG image."
+                      )
+                    }
                     className="max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-lg border-accent border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] rounded-lg"
                   />
                 </div>

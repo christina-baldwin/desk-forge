@@ -15,14 +15,23 @@ const openai = new OpenAI({
 
 router.post("/desks/:id/generate", authenticate, async (req, res) => {
   const deskId = req.params.id;
+  console.log(
+    "Generate suggestions request for desk ID:",
+    deskId,
+    "by user:",
+    req.user.id
+  );
 
   try {
     // fetch the desk
     const desk = await Desk.findOne({ _id: deskId, userId: req.user.id });
-    if (!desk)
+    if (!desk) {
+      console.log("Desk not found for this user:", req.user.id);
       return res
         .status(404)
         .json({ success: false, message: "Desk not found" });
+    }
+    console.log("Desk found:", desk._id, "Image URL:", desk.imageUrl);
 
     // fetch the user
     const user = await User.findById(req.user.id);
@@ -32,6 +41,15 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
         .json({ success: false, message: "User not found" });
 
     // limit AI calls per account
+    console.log(
+      "User fetched:",
+      user._id,
+      "Email:",
+      user.email,
+      "Total AI calls:",
+      user.totalAiCalls || 0
+    );
+
     if ((user.totalAiCalls || 0) >= 10) {
       return res.status(403).json({
         success: false,
@@ -68,7 +86,20 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
     console.info("aiMessage: ", aiMessage);
 
     // store ai suggestions
-    desk.suggestions = JSON.parse(aiMessage);
+    // desk.suggestions = JSON.parse(aiMessage);
+    try {
+      desk.suggestions = JSON.parse(aiMessage);
+    } catch (parseError) {
+      console.error(
+        "Failed to parse AI message:",
+        parseError,
+        "aiMessage:",
+        aiMessage
+      );
+      return res
+        .status(500)
+        .json({ success: false, message: "Invalid AI response format" });
+    }
 
     // generate a short summary, similar to previous prompt
     const summaryPrompt = `Here are the desk problems ${
@@ -79,11 +110,22 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
         "\n"
       )}. Using these, write a short 1 sentence summary highlighting only the key issues and solutions for my warhammer hobby desk setup`;
 
-    const summaryResponse = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: summaryPrompt }],
-      max_tokens: 150,
-    });
+    // const summaryResponse = await openai.chat.completions.create({
+    //   model: "gpt-4o-mini",
+    //   messages: [{ role: "user", content: summaryPrompt }],
+    //   max_tokens: 150,
+    // });
+    try {
+      const summaryResponse = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: summaryPrompt }],
+        max_tokens: 150,
+      });
+      desk.summary = summaryResponse.choices[0]?.message?.content || "";
+    } catch (summaryError) {
+      console.error("OpenAI summary error:", summaryError);
+      desk.summary = "";
+    }
 
     desk.summary = summaryResponse.choices[0]?.message?.content || "";
 

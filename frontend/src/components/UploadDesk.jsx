@@ -37,9 +37,24 @@ const UploadDesk = () => {
     fetchLatestDesk();
   }, []);
 
+  // const handleFileChange = (e) => {
+  //   const selectedFile = e.target.files[0];
+  //   if (!selectedFile) return;
+
+  //   setFile(selectedFile);
+  //   setMessage("");
+  //   setProblems("");
+  // };
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!allowedTypes.includes(selectedFile.type)) {
+      setMessage("Only JPG, PNG, and GIF images are supported!");
+      return;
+    }
 
     setFile(selectedFile);
     setMessage("");
@@ -105,12 +120,26 @@ const UploadDesk = () => {
     }
   };
 
+  // const handleDrop = (e) => {
+  //   e.preventDefault();
+  //   const droppedFile = e.dataTransfer.files[0];
+
+  //   if (!droppedFile.type.startsWith("image/")) {
+  //     setMessage("Only image files are allowed!");
+  //     return;
+  //   }
+
+  //   setFile(droppedFile);
+  //   setMessage("");
+  // };
+
   const handleDrop = (e) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
 
-    if (!droppedFile.type.startsWith("image/")) {
-      setMessage("Only image files are allowed!");
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!allowedTypes.includes(droppedFile.type)) {
+      setMessage("Only JPG, PNG, and GIF images are supported!");
       return;
     }
 

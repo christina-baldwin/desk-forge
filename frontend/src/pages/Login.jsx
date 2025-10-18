@@ -114,7 +114,7 @@ const Login = () => {
               type="submit"
               className="px-4 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3 lg:px-6 lg:py-4 bg-accent text-dark text-lg sm:text-lg md:text-xl lg:text-xl rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent w-full"
             >
-              LOGIN
+              {isLoading ? "LOGGING IN..." : "LOGIN"}
             </button>
           </form>
 
@@ -130,18 +130,10 @@ const Login = () => {
 
           <Link
             to="/"
-            className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg font-heading text-dark font-bold hover:underline transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent text-center"
+            className="mt-2 p-4 sm:mt-4 text-sm sm:text-base md:text-lg font-heading text-dark font-bold hover:underline transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent text-center"
           >
             ← Back to Home
           </Link>
-
-          <p
-            className={`font-heading text-dark italic text-center bg-slate-100 p-4 border border-accent rounded-md transition-opacity duration-300 ${
-              isLoading ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            Logging in...
-          </p>
         </div>
       </motion.div>
     </div>

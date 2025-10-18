@@ -275,7 +275,7 @@ const Register = () => {
               type="submit"
               className="px-4 py-2 sm:px-5 sm:py-3 md:px-6 md:py-3 lg:px-6 lg:py-4 bg-accent text-dark text-lg sm:text-lg md:text-xl lg:text-xl rounded font-heading cursor-pointer border-light border-4 shadow-[0_0_0_4px_black] drop-shadow-[3px_3px_0_#1b2a2f] transform hover:translate-x-1 hover:translate-y-1 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-accent w-full"
             >
-              REGISTER
+              {isLoading ? "REGISTERING..." : "REGISTER"}
             </button>
           </form>
 
@@ -290,18 +290,10 @@ const Register = () => {
           </p>
           <Link
             to="/"
-            className="mt-4 text-lg font-heading text-dark font-bold hover:underline duration:200 transition-all focus:outline-none focus:ring-2 focus:ring-accent"
+            className="mt-4 p-4 text-lg font-heading text-dark font-bold hover:underline duration:200 transition-all focus:outline-none focus:ring-2 focus:ring-accent"
           >
             ← Back to Home
           </Link>
-
-          <p
-            className={`font-heading text-dark italic text-center bg-slate-100 p-4 border border-accent rounded-md transition-opacity duration-300 ${
-              isLoading ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            Registering account...
-          </p>
         </div>
       </motion.div>
     </div>
