@@ -127,7 +127,7 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
       desk.summary = "";
     }
 
-    desk.summary = summaryResponse.choices[0]?.message?.content || "";
+    // desk.summary = summaryResponse.choices[0]?.message?.content || "";
 
     // increment ai calls
     user.totalAiCalls = (user.totalAiCalls || 0) + 1;
