@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const apiUrl = "https://desk-forge.onrender.com";
@@ -7,6 +7,8 @@ const apiUrl = "https://desk-forge.onrender.com";
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -140,6 +142,8 @@ const Register = () => {
         password: "",
         confirmPassword: "",
       });
+
+      navigate("/login");
 
       setErrors({});
       setError("");
