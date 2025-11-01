@@ -4,6 +4,7 @@ import User from "../models/User.js";
 import authenticate from "../middlewares/auth.js";
 import OpenAI from "openai";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ const openai = new OpenAI({
 
 router.post("/desks/:id/generate", authenticate, async (req, res) => {
   const deskId = req.params.id;
+  const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
   console.log(
     "Generate suggestions request for desk ID:",
     deskId,
@@ -23,7 +25,6 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
   );
 
   try {
-    // fetch the desk
     const desk = await Desk.findOne({ _id: deskId, userId: req.user.id });
     if (!desk) {
       console.log("Desk not found for this user:", req.user.id);
@@ -33,14 +34,24 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
     }
     console.log("Desk found:", desk._id, "Image URL:", desk.imageUrl);
 
-    // fetch the user
+    const fileExtension = path
+      .extname(desk.imageUrl.split("?")[0])
+      .toLowerCase();
+
+    if (!allowedExtensions.includes(fileExtension)) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Cannot generate suggestions: unsupported file type. Please upload JPG, PNG, or GIF.",
+      });
+    }
+
     const user = await User.findById(req.user.id);
     if (!user)
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
 
-    // limit AI calls per account
     console.log(
       "User fetched:",
       user._id,
@@ -58,7 +69,6 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
       });
     }
 
-    // ask openai for suggestions
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -80,13 +90,10 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
       max_tokens: 500,
     });
 
-    // ai returns an object so extract ai output from api response
     const aiMessage = response.choices[0]?.message?.content || "";
 
     console.info("aiMessage: ", aiMessage);
 
-    // store ai suggestions
-    // desk.suggestions = JSON.parse(aiMessage);
     try {
       desk.suggestions = JSON.parse(aiMessage);
     } catch (parseError) {
@@ -101,7 +108,6 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
         .json({ success: false, message: "Invalid AI response format" });
     }
 
-    // generate a short summary, similar to previous prompt
     const summaryPrompt = `Here are the desk problems ${
       desk.problems
     } and here are the ai-generated suggestions ${desk.suggestions
@@ -110,11 +116,6 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
         "\n"
       )}. Using these, write a short 1 sentence summary highlighting only the key issues and solutions for my warhammer hobby desk setup`;
 
-    // const summaryResponse = await openai.chat.completions.create({
-    //   model: "gpt-4o-mini",
-    //   messages: [{ role: "user", content: summaryPrompt }],
-    //   max_tokens: 150,
-    // });
     try {
       const summaryResponse = await openai.chat.completions.create({
         model: "gpt-4o-mini",
@@ -127,13 +128,9 @@ router.post("/desks/:id/generate", authenticate, async (req, res) => {
       desk.summary = "";
     }
 
-    // desk.summary = summaryResponse.choices[0]?.message?.content || "";
-
-    // increment ai calls
     user.totalAiCalls = (user.totalAiCalls || 0) + 1;
     await user.save();
 
-    // save to database
     await desk.save();
 
     res.status(200).json({ success: true, suggestions: desk.suggestions });

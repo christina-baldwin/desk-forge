@@ -58,18 +58,19 @@ const LatestDesk = () => {
         }
       );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to generate suggestions");
-      }
-
       const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message || "Failed to generate suggestions");
+        return;
+      }
 
       setLatestDesk({ ...latestDesk, suggestions: data.suggestions });
       setMessage("Suggestions generated successfully!");
       navigate("/suggestions");
     } catch (error) {
-      setMessage(error.message);
+      console.error("Generation error:", error);
+      setMessage(error.message || "Unexpected error during generation");
     } finally {
       setLoading(false);
     }

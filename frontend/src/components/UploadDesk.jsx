@@ -37,22 +37,30 @@ const UploadDesk = () => {
     fetchLatestDesk();
   }, []);
 
-  // const handleFileChange = (e) => {
-  //   const selectedFile = e.target.files[0];
-  //   if (!selectedFile) return;
-
-  //   setFile(selectedFile);
-  //   setMessage("");
-  //   setProblems("");
-  // };
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (!selectedFile) return;
 
     const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
-    if (!allowedTypes.includes(selectedFile.type)) {
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+    const MAX_FILE_SIZE_MB = 5;
+
+    const fileExtension = selectedFile.name
+      .slice(((selectedFile.name.lastIndexOf(".") - 1) >>> 0) + 2)
+      .toLowerCase();
+
+    if (
+      !allowedTypes.includes(selectedFile.type) ||
+      !allowedExtensions.includes(`.${fileExtension}`)
+    ) {
       setMessage("Only JPG, PNG, and GIF images are supported!");
+      return;
+    }
+
+    if (selectedFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      alert(
+        `File too large. Please upload a file under ${MAX_FILE_SIZE_MB} MB.`
+      );
       return;
     }
 
@@ -68,11 +76,6 @@ const UploadDesk = () => {
   const handleUpload = async () => {
     if (!file) {
       setMessage("Please select a file to upload.");
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      setMessage("File size exceeds 5MB limit.");
       return;
     }
 
@@ -92,20 +95,24 @@ const UploadDesk = () => {
         body: formData,
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error("File upload failed");
+        setMessage(data.message || "An unexpected error occurred.");
+        return;
       }
 
-      await response.json();
-
-      setMessage("File uploaded successfully!");
+      // Success
+      setMessage(data.message || "File uploaded successfully!");
       setProblems("");
       setFile(null);
       if (fileInputRef.current) fileInputRef.current.value = null;
 
       fetchLatestDesk();
     } catch (error) {
-      setMessage(error.message);
+      setMessage(
+        error.message || "An unexpected error occurred during upload."
+      );
     } finally {
       setIsUploading(false);
     }
@@ -119,19 +126,6 @@ const UploadDesk = () => {
       if (fileInputRef.current) fileInputRef.current.value = null;
     }
   };
-
-  // const handleDrop = (e) => {
-  //   e.preventDefault();
-  //   const droppedFile = e.dataTransfer.files[0];
-
-  //   if (!droppedFile.type.startsWith("image/")) {
-  //     setMessage("Only image files are allowed!");
-  //     return;
-  //   }
-
-  //   setFile(droppedFile);
-  //   setMessage("");
-  // };
 
   const handleDrop = (e) => {
     e.preventDefault();
